@@ -17,81 +17,77 @@ const FloatingHeader = () => {
   }, []);
 
   return (
-    <div className="border-2 border-gray-800/50 absolute top-5 left-5 right-5 bg-gray-900/40 backdrop-blur-md px-6 py-3 rounded-xl shadow-lg z-50 flex flex-col items-center justify-between">
-      <div className='flex items-center justify-between w-full'>
-        <div className="text-white text-lg md:text-xl font-bold whitespace-nowrap animate-glow flex items-center space-x-2">
-            <FaLaptopCode className="text-cyan-400 text-2xl" /> {/* Full-stack Developer Icon */}
-            <span>&lt;Full-stack Developer/&gt;</span>
+    <div id="home" className="border-2 border-gray-800/50 absolute top-5 left-5 right-5 bg-gray-900/40 backdrop-blur-md px-4 sm:px-6 py-3 rounded-xl shadow-lg z-50 flex flex-col items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-y-4">
+        <div className="text-white text-base sm:text-lg md:text-xl font-bold whitespace-nowrap animate-glow flex items-center space-x-2">
+          <FaLaptopCode className="text-cyan-400 text-xl sm:text-2xl" />
+          <span>&lt;Full-stack Developer/&gt;</span>
         </div>
-        {/* Center: Navigation */}
-        <nav className="hidden md:flex flex-1 justify-center">
-            <ul className="flex space-x-6 text-sm md:text-base">
+
+        <nav className="w-full sm:w-auto md:flex md:flex-1 justify-center">
+          <ul className="flex flex-wrap justify-center sm:justify-start space-x-4 sm:space-x-6 text-xs sm:text-sm md:text-base">
             <li>
-                <Link href="/" className="text-white hover:text-cyan-400 transition font-medium animate-glow">
-                Home
-                </Link>
+              <Link href="#home" className="text-white hover:text-cyan-400 transition font-medium animate-glow">Home</Link>
             </li>
             <li>
-                <Link href="/about" className="text-white hover:text-cyan-400 transition font-medium animate-glow">
-                About
-                </Link>
+              <Link href="#about" className="text-white hover:text-cyan-400 transition font-medium animate-glow">About</Link>
             </li>
             <li>
-                <Link href="/projects" className="text-white hover:text-cyan-400 transition font-medium animate-glow">
-                Projects
-                </Link>
+              <Link href="#projects" className="text-white hover:text-cyan-400 transition font-medium animate-glow">Projects</Link>
             </li>
             <li>
-                <Link href="/achievements" className="text-white hover:text-cyan-400 transition font-medium animate-glow">
-                Achievements
-                </Link>
+              <Link href="#achievements" className="text-white hover:text-cyan-400 transition font-medium animate-glow">Achievements</Link>
             </li>
-            <li>
-                <Link href="/contact" className="text-white hover:text-cyan-400 transition font-medium animate-glow">
-                Contact
-                </Link>
-            </li>
-            </ul>
+          </ul>
         </nav>
 
-        {/* Right: Buttons with icons */}
-        <div className="flex space-x-3">
-            <a
+        <div className="flex flex-row items-center space-x-4 sm:space-y-0 sm:space-x-3">
+          <a
             href="https://github.com/your-github-id"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-md font-semibold shadow transition duration-200 animate-glow-btn flex items-center space-x-2"
-            >
-            <FaGithub className="text-white" /> {/* GitHub Icon */}
-            <span>View GitHub</span>
-            </a>
-            <a
+            className="bg-cyan-500 hover:bg-cyan-600 text-white px-3 sm:px-4 py-2 rounded-md font-semibold shadow transition duration-200 animate-glow-btn flex items-center space-x-2 text-sm"
+          >
+            <FaGithub className="text-white" />
+            <span>GitHub</span>
+          </a>
+          <a
             href="https://www.linkedin.com/in/your-linkedin-id"
             target="_blank"
             rel="noopener noreferrer"
-            className="border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white px-4 py-2 rounded-md font-semibold shadow transition duration-200 animate-glow-btn flex items-center space-x-2"
-            >
-            <FaLinkedin className="text-cyan-400" /> {/* LinkedIn Icon */}
-            <span>Visit LinkedIn</span>
-            </a>
+            className="border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white px-3 sm:px-4 py-2 rounded-md font-semibold shadow transition duration-200 animate-glow-btn flex items-center space-x-2 text-sm"
+          >
+            <FaLinkedin className="text-cyan-400" />
+            <span>LinkedIn</span>
+          </a>
         </div>
       </div>
-      <div className={`mt-12 p-4 fadeIn ${fadeIn ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000 max-w-screen-xl mx-auto flex items-center justify-between w-full`}>
-        <div className="flex items-center justify-between w-full">
+
+      <div className={`mt-8 sm:mt-12 p-4 fadeIn ${fadeIn ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000 max-w-screen-xl mx-auto w-full`}>
+        <div className="flex flex-col md:flex-row items-center justify-between w-full gap-y-6">
           {/* Text Section */}
-          <div className="w-1/2 pr-8 mr-auto">
-            <div className="flex items-center space-x-4">
-              <h2 className="text-3xl text-white font-semibold animate-glow">Alisher Sayed</h2>
+          <div className="w-full md:w-1/2 md:pr-8">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start sm:space-x-4 space-y-3 sm:space-y-0">
+              <h2 className="text-2xl sm:text-3xl text-white font-semibold animate-glow text-center sm:text-left">Alisher Sayed</h2>
               <a
-                onClick={()=>setIsResumeModalOpen(true)}
-                className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full font-medium shadow-md hover:scale-105 transition-transform duration-300 animate-glow-btn"
+                onClick={() => setIsResumeModalOpen(true)}
+                className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full font-medium shadow-md hover:scale-105 transition-transform duration-300 animate-glow-btn cursor-pointer"
               >
                 View Resume
               </a>
             </div>
-            <p className="text-sm text-gray-300 mt-2 text-justify">
-            Aspiring full-stack developer with experience in React, Node.js, Express, and Flask. Skilled in building responsive web apps using HTML, CSS, Bootstrap, and ASP.NET. Proficient in Python, Java, Kotlin, and C#, with knowledge of Git, Android Studio, and databases like MySQL, MongoDB, and PostgreSQL.
+            <div className="flex gap-x-6 mt-4">
+              <a className="!text-xs sm:text-base text-cyan-300 cursor-pointer font-medium hover:text-cyan-500 transition-all duration-300 transform hover:scale-105">
+                <span className="text-xs">📧</span> alishersayed100@gmail.com
+              </a>
+              <a className="!text-xs sm:text-base text-cyan-300 cursor-pointer font-medium hover:text-cyan-500 transition-all duration-300 transform hover:scale-105">
+                <span className="text-xs">📞</span> +91 7977876006
+              </a>
+            </div>
+            <p className="text-sm text-gray-300 mt-3 text-justify">
+              Aspiring full-stack developer with experience in React, Node.js, Express, and Flask. Skilled in building responsive web apps using HTML, CSS, Bootstrap, and ASP.NET. Proficient in Python, Java, Kotlin, and C#, with knowledge of Git, Android Studio, and databases like MySQL, MongoDB, and PostgreSQL.
             </p>
+
             {/* Skills row */}
             <div className="flex flex-wrap gap-2 mt-4">
               {['React','Material-UI', 'Next.js', 'Tailwind CSS', 'Node.js', 'MongoDB','Express','Flask','FastAPI','MSSQL','PostgreSQL'].map((skill) => (
@@ -105,7 +101,8 @@ const FloatingHeader = () => {
             </div>
           </div>
 
-          <div className="relative w-[350px] h-[320px] perspective">
+          {/* Image Cards */}
+          <div className="relative w-[350px] h-[320px] perspective z-30 sm:z-10 order-first sm:order-last">
             {/* First Card */}
             <div
               className={`absolute top-0 left-0 transition-all duration-500 ease-in-out transform ${
@@ -140,10 +137,13 @@ const FloatingHeader = () => {
               />
             </div>
           </div>
+
         </div>
       </div>
-      {isResumeOpen && <ResumeModal onClose={()=>setIsResumeModalOpen(false)} />}
+
+      {isResumeOpen && <ResumeModal onClose={() => setIsResumeModalOpen(false)} isOpen={()=>setIsResumeModalOpen(true)} />}
     </div>
+
   );
 };
 

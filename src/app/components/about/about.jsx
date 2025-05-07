@@ -26,7 +26,8 @@ const FloatingAbout = () => {
 
   return (
     <motion.div 
-      className="absolute bg-gray-900/40 backdrop-blur-md border-2 border-gray-800/50 px-6 py-4 rounded-xl shadow-lg z-50 top-130 right-5 left-5 flex flex-col space-y-6"
+        id="about"
+      className="absolute bg-gray-900/40 backdrop-blur-md border-2 border-gray-800/50 px-6 py-4 rounded-xl shadow-lg z-50 top-250 md:top-130 right-5 left-5 flex flex-col space-y-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }} // Fade-in animation on page load
@@ -37,10 +38,10 @@ const FloatingAbout = () => {
       </p>
 
       {/* Flex Row Container for Education and Interests */}
-      <div className="flex flex-row w-full space-x-6">
+      <div className="flex flex-col md:flex-row w-full space-x-6">
         {/* Left Side: Education Cards */}
         <motion.div
-          className="flex flex-col space-y-6 w-1/2"
+          className="flex flex-col space-y-6 w-full md:w-1/2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.3 }} // Add delay for smooth transition
@@ -96,7 +97,7 @@ const FloatingAbout = () => {
 
         {/* Right Side: Interests */}
         <motion.div
-          className="md:w-1/2 space-y-6"
+          className="md:w-1/2 space-y-6 mt-4 md:mt-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.6 }} // Add delay for smooth transition
@@ -143,7 +144,6 @@ const FloatingAbout = () => {
                         { name: 'Backend-Frontend Integration', icon: <Code className="text-xl" /> },
                         { name: 'Conceptual Designs', icon: <Layers className="text-xl" /> },
                         { name: 'Effective Collaboration', icon: <Users className="text-xl" /> },
-                        { name: 'Tech Enthusiast', icon: <Laptop className="text-xl" /> },
                     ].map((interest, index) => (
                         <motion.div
                         key={index}
@@ -163,7 +163,6 @@ const FloatingAbout = () => {
                         { name: 'Backend-Frontend Integration', icon: <Code className="text-xl" /> },
                         { name: 'Conceptual Designs', icon: <Layers className="text-xl" /> },
                         { name: 'Effective Collaboration', icon: <Users className="text-xl" /> },
-                        { name: 'Tech Enthusiast', icon: <Laptop className="text-xl" /> },
                     ].map((interest, index) => (
                         <motion.div
                         key={`duplicate-${index}`}

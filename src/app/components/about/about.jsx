@@ -27,7 +27,7 @@ const FloatingAbout = () => {
   return (
     <motion.div 
         id="about"
-      className="absolute bg-gray-900/40 backdrop-blur-md border-2 border-gray-800/50 px-6 py-4 rounded-xl shadow-lg z-50 top-250 md:top-130 right-5 left-5 flex flex-col space-y-6"
+      className="absolute bg-gray-900/40 backdrop-blur-md border-2 border-gray-800/50 px-6 py-4 rounded-xl shadow-lg z-50 top-260 sm:top-210 md:top-130 right-5 left-5 flex flex-col space-y-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }} // Fade-in animation on page load
@@ -127,7 +127,7 @@ const FloatingAbout = () => {
                       transform: `translateX(${translateX}px) rotate(${rotation}deg)`,
                     }}
                   >
-                    <Image src={img} alt={`Drawing ${i + 1}`} fill className="object-cover" />
+                    <Image src={img} alt={`Drawing ${i + 1}`} fill className="object-cover scale-75 md:scale-100" />
                   </div>
                 );
               })}

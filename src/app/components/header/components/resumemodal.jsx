@@ -31,7 +31,7 @@ const ResumeModal = ({ onClose, isOpen }) => {
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute text-white right-4 top-2 text-3xl cursor-pointer z-10"
+            className="absolute text-white right-2 top-0 text-3xl cursor-pointer z-10"
           >
             &times;
           </button>

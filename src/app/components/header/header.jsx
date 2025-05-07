@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import Link from 'next/link';
-import { FaGithub, FaLinkedin, FaLaptopCode } from 'react-icons/fa'; // Importing icons from React Icons
+import { FaGithub, FaLinkedin, FaLaptopCode } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import myimage from '../../assets/images/myimage.jpg';
 import myimage1 from '../../assets/images/myimage1.jpg';
@@ -17,8 +17,14 @@ const FloatingHeader = () => {
   }, []);
 
   return (
-    <div id="home" className="border-2 border-gray-800/50 absolute top-5 left-5 right-5 bg-gray-900/40 backdrop-blur-md px-4 sm:px-6 py-3 rounded-xl shadow-lg z-50 flex flex-col items-center justify-between">
-      <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-y-4">
+    <>
+    <div
+      id="home"
+      className={`border-2 border-gray-800/50 absolute top-5 left-5 right-5 bg-gray-900/40 backdrop-blur-md px-4 sm:px-6 py-3 rounded-xl shadow-lg z-50 flex flex-col items-center justify-between transform transition-all duration-1000 ease-out ${
+        fadeIn ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+      }`}
+    >
+      <div className="flex flex-col xs:flex-col sm:flex-row md:flex-row items-center justify-between w-full gap-y-4">
         <div className="text-white text-base sm:text-lg md:text-xl font-bold whitespace-nowrap animate-glow flex items-center space-x-2">
           <FaLaptopCode className="text-cyan-400 text-xl sm:text-2xl" />
           <span>&lt;Full-stack Developer/&gt;</span>
@@ -26,36 +32,34 @@ const FloatingHeader = () => {
 
         <nav className="w-full sm:w-auto md:flex md:flex-1 justify-center">
           <ul className="flex flex-wrap justify-center sm:justify-start space-x-4 sm:space-x-6 text-xs sm:text-sm md:text-base">
-            <li>
-              <Link href="#home" className="text-white hover:text-cyan-400 transition font-medium animate-glow">Home</Link>
-            </li>
-            <li>
-              <Link href="#about" className="text-white hover:text-cyan-400 transition font-medium animate-glow">About</Link>
-            </li>
-            <li>
-              <Link href="#projects" className="text-white hover:text-cyan-400 transition font-medium animate-glow">Projects</Link>
-            </li>
-            <li>
-              <Link href="#achievements" className="text-white hover:text-cyan-400 transition font-medium animate-glow">Achievements</Link>
-            </li>
+            {['home', 'about', 'projects', 'achievements'].map((section) => (
+              <li key={section}>
+                <Link
+                  href={`#${section}`}
+                  className="text-white hover:text-cyan-400 transition duration-300 ease-in-out font-medium animate-glow"
+                >
+                  {section.charAt(0).toUpperCase() + section.slice(1)}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
 
         <div className="flex flex-row items-center space-x-4 sm:space-y-0 sm:space-x-3">
           <a
-            href="https://github.com/your-github-id"
+            href="https://github.com/bumble469/"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-cyan-500 hover:bg-cyan-600 text-white px-3 sm:px-4 py-2 rounded-md font-semibold shadow transition duration-200 animate-glow-btn flex items-center space-x-2 text-sm"
+            className="bg-cyan-500 hover:bg-cyan-600 text-white px-3 sm:px-4 py-2 rounded-md font-semibold shadow transition duration-300 ease-in-out animate-glow-btn flex items-center space-x-2 text-sm"
           >
             <FaGithub className="text-white" />
             <span>GitHub</span>
           </a>
           <a
-            href="https://www.linkedin.com/in/your-linkedin-id"
+            href="https://www.linkedin.com/in/alisher-sayed-07a54a237/"
             target="_blank"
             rel="noopener noreferrer"
-            className="border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white px-3 sm:px-4 py-2 rounded-md font-semibold shadow transition duration-200 animate-glow-btn flex items-center space-x-2 text-sm"
+            className="border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white px-3 sm:px-4 py-2 rounded-md font-semibold shadow transition duration-300 ease-in-out animate-glow-btn flex items-center space-x-2 text-sm"
           >
             <FaLinkedin className="text-cyan-400" />
             <span>LinkedIn</span>
@@ -63,12 +67,18 @@ const FloatingHeader = () => {
         </div>
       </div>
 
-      <div className={`mt-8 sm:mt-12 p-4 fadeIn ${fadeIn ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000 max-w-screen-xl mx-auto w-full`}>
+      <div
+        className={`mt-8 sm:mt-12 p-4 max-w-screen-xl mx-auto w-full transition-opacity duration-1000 ease-out ${
+          fadeIn ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
         <div className="flex flex-col md:flex-row items-center justify-between w-full gap-y-6">
           {/* Text Section */}
-          <div className="w-full md:w-1/2 md:pr-8">
+          <div className="w-full md:w-1/2 md:pr-8 animate-fade-in">
             <div className="flex flex-col sm:flex-row items-center sm:items-start sm:space-x-4 space-y-3 sm:space-y-0">
-              <h2 className="text-2xl sm:text-3xl text-white font-semibold animate-glow text-center sm:text-left">Alisher Sayed</h2>
+              <h2 className="text-2xl sm:text-3xl text-white font-semibold animate-glow text-center sm:text-left">
+                Alisher Sayed
+              </h2>
               <a
                 onClick={() => setIsResumeModalOpen(true)}
                 className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full font-medium shadow-md hover:scale-105 transition-transform duration-300 animate-glow-btn cursor-pointer"
@@ -90,10 +100,22 @@ const FloatingHeader = () => {
 
             {/* Skills row */}
             <div className="flex flex-wrap gap-2 mt-4">
-              {['React','Material-UI', 'Next.js', 'Tailwind CSS', 'Node.js', 'MongoDB','Express','Flask','FastAPI','MSSQL','PostgreSQL'].map((skill) => (
+              {[
+                'React',
+                'Material-UI',
+                'Next.js',
+                'Tailwind CSS',
+                'Node.js',
+                'MongoDB',
+                'Express',
+                'Flask',
+                'FastAPI',
+                'MSSQL',
+                'PostgreSQL',
+              ].map((skill) => (
                 <span
                   key={skill}
-                  className="bg-gray-800 text-cyan-400 text-xs font-medium px-3 py-1 rounded-full shadow-sm"
+                  className="bg-gray-800 text-cyan-400 text-xs font-medium px-3 py-1 rounded-full shadow-sm transition-transform duration-300 ease-in-out hover:scale-105"
                 >
                   {skill}
                 </span>
@@ -115,8 +137,7 @@ const FloatingHeader = () => {
               <Image
                 src={myimage}
                 alt="image1"
-                className="rounded-3xl shadow-2xl cursor-pointer"
-                style={{ width: '300px', height: '300px', objectFit: 'cover' }}
+                className="rounded-3xl shadow-2xl cursor-pointer scale-80 md:scale-100 object-cover w-72 h-72 sm:w-80 sm:h-80 transition-transform duration-500"
               />
             </div>
 
@@ -132,18 +153,20 @@ const FloatingHeader = () => {
               <Image
                 src={myimage1}
                 alt="image2"
-                className="rounded-3xl shadow-2xl cursor-pointer"
-                style={{ width: '300px', height: '300px', objectFit: 'cover' }}
+                className="rounded-3xl shadow-2xl cursor-pointer scale-80 md:scale-100 object-cover w-72 h-72 sm:w-80 sm:h-80 transition-transform duration-500"
               />
             </div>
           </div>
-
         </div>
       </div>
-
-      {isResumeOpen && <ResumeModal onClose={() => setIsResumeModalOpen(false)} isOpen={()=>setIsResumeModalOpen(true)} />}
     </div>
-
+    {isResumeOpen && (
+      <ResumeModal
+        onClose={() => setIsResumeModalOpen(false)}
+        isOpen={() => setIsResumeModalOpen(true)}
+      />
+    )}
+    </>
   );
 };
 

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { ArrowRight, Eye } from 'lucide-react'; // Import Eye icon
+import { FiExternalLink } from "react-icons/fi"; // Link icon
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -106,12 +107,12 @@ const FloatingProjects = () => {
   />
     <motion.div
         id="projects"
-      className="absolute bg-gray-900/40 backdrop-blur-md border-2 border-gray-800/50 px-6 py-6 rounded-xl shadow-lg z-50 top-590 md:top-310 right-5 left-5"
+      className="absolute bg-gray-900/40 backdrop-blur-md border-2 border-gray-800/50 px-6 py-6 rounded-xl shadow-lg z-50 top-645 sm:top-540 md:top-310 right-5 left-5"
     >
       <h2 className="text-2xl text-center text-white font-semibold mb-2">Projects</h2>
       <div className="flex flex-wrap gap-4">
         {/* Row 1 */}
-        <div className="flex scrollbar-hidden overflow-x-auto space-x-4 w-full scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
+        <div className="flex project-scrolling overflow-x-auto space-x-4 w-full scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
           {projects.slice(0, Math.ceil(projects.length / 2)).map((project, index) => (
             <motion.div
               key={index}
@@ -129,8 +130,8 @@ const FloatingProjects = () => {
                   className="object-cover w-full h-48"
                 />
                 <Link href={project.link} target="_blank" rel="noopener noreferrer">
-                  <div className="absolute top-2 right-2 bg-blue-600 hover:bg-blue-700 p-1 rounded-full">
-                    <ArrowRight className="h-4 w-4 text-white" />
+                  <div className="absolute top-2 right-2 bg-blue-600 hover:bg-blue-700 p-1 rounded-lg">
+                    <FiExternalLink className="inline-block ml-1 text-sm" />
                   </div>
                 </Link>
               </div>
@@ -150,7 +151,7 @@ const FloatingProjects = () => {
         </div>
 
         {/* Row 2 */}
-        <div className="flex overflow-x-auto scrollbar-hidden space-x-4 w-full scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
+        <div className="flex project-scrolling mt-2 overflow-x-auto space-x-4 w-full scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
           {projects.slice(Math.ceil(projects.length / 2)).map((project, index) => (
             <motion.div
               key={index}
@@ -168,8 +169,8 @@ const FloatingProjects = () => {
                   className="object-cover w-full h-48"
                 />
                 <Link href={project.link} target="_blank" rel="noopener noreferrer">
-                  <div className="absolute top-2 right-2 bg-blue-600 hover:bg-blue-700 p-1 rounded-full">
-                    <ArrowRight className="h-4 w-4 text-white" />
+                  <div className="absolute top-2 right-2 bg-blue-600 hover:bg-blue-700 p-1 rounded-lg">
+                    <FiExternalLink className="inline-block ml-1 text-sm" />
                   </div>
                 </Link>
               </div>

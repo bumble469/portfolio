@@ -17,7 +17,7 @@ const FloatingHeader = () => {
   }, []);
 
   return (
-    <div className="border-2 border-gray-800/50 fixed top-5 left-5 right-5 bg-gray-900/40 backdrop-blur-md px-6 py-3 rounded-xl shadow-lg z-50 flex flex-col items-center justify-between">
+    <div className="border-2 border-gray-800/50 absolute top-5 left-5 right-5 bg-gray-900/40 backdrop-blur-md px-6 py-3 rounded-xl shadow-lg z-50 flex flex-col items-center justify-between">
       <div className='flex items-center justify-between w-full'>
         <div className="text-white text-lg md:text-xl font-bold whitespace-nowrap animate-glow flex items-center space-x-2">
             <FaLaptopCode className="text-cyan-400 text-2xl" /> {/* Full-stack Developer Icon */}

@@ -19,12 +19,13 @@ const ResumeModal = ({ onClose, isOpen }) => {
   return (
     <motion.div
       className="fixed inset-0 bg-opacity-50 backdrop-blur-xs flex justify-center items-center z-[100] pointer-events-none"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{ opacity: 0, scale: 0.8 }}  // Start from scaled down and invisible
+      animate={{ opacity: 1, scale: 1 }}   // Fade in with scale to normal size
+      exit={{ opacity: 0, scale: 0.8 }}    // Fade out with scale down
+      transition={{ opacity: { duration: 0.4 }, scale: { duration: 0.4 } }}  // Slow motion effect
     >
       <div
-        className="bg-gray-900 p-6 rounded-xl w-11/12 md:w-2/3 max-w-4xl h-[90vh] pointer-events-auto"
+        className="bg-gray-900/90 p-6 rounded-xl w-11/12 md:w-2/3 max-w-4xl h-[90vh] pointer-events-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative h-full">

@@ -1,6 +1,5 @@
 "use client";
-import React from "react";
-import { motion } from "framer-motion";
+import React, {useRef,useState,useEffect} from "react";
 import Image from "next/image";
 import { FiExternalLink } from "react-icons/fi"; // Link icon
 import avishkarimage from "../../assets/images/avishkarimage.jpg";
@@ -69,25 +68,40 @@ const extracurriculars = [
 ];
 
 const FloatingAchievements = () => {
+  const [fadeIn, setFadeIn] = useState(false);
+  const achievementsRef = useRef(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setFadeIn(entry.isIntersecting),
+      { threshold: 0.5 }
+    );
+
+    if (achievementsRef.current) observer.observe(achievementsRef.current);
+    return () => {
+      if (achievementsRef.current) observer.unobserve(achievementsRef.current);
+    };
+  }, []);
+  
   return (
-    <motion.div
+    <div
+      ref={achievementsRef}
       id="achievements"
-      className="absolute bg-gray-900/40 backdrop-blur-md border-2 border-gray-800/50 px-6 py-6 rounded-xl shadow-lg z-50 top-800 sm:top-700 md:top-455 right-5 left-5"
-    >
-      <h2 className="text-2xl text-center text-white font-semibold mb-2">Achievements</h2>
+      className="w-full overflow-x-auto project-scrolling max-w-7xl mx-auto px-4 sm:px-6 py-3 border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md rounded-xl shadow-lg z-50 flex flex-col items-center justify-between"
+      >
+      <h2 className={`text-2xl text-center text-white font-semibold mb-2 ${fadeIn ? 'opacity-100 transition-all duration-1000 transform scale-100' : 'opacity-0 transform scale-90 transition-all duration-1000'}`}>Achievements</h2>
 
       <div className="flex flex-col md:flex-row gap-6 mt-4">
         {/* Certifications Box */}
         <div className="bg-gray-800 rounded-xl p-4 flex-1 flex flex-col">
-          <h4 className="text-center font-semibold text-white mb-2">Certifications</h4>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-grow">
+          <h4 className={`text-center font-semibold text-white mb-2 ${fadeIn ? 'opacity-100 transition-all duration-1000 transform scale-100' : 'opacity-0 transform scale-90 transition-all duration-1000'}`}>Certifications</h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-grow overflow-y-auto project-scrolling max-h-[50vh] sm:max-h-[90vh]">
             {certifications.map((cert, index) => (
               <a
                 key={index}
                 href={cert.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gray-700 p-3 rounded-lg shadow-md text-white hover:bg-gray-600 transition-colors h-full flex flex-col justify-between"
+                className={`bg-gray-700 p-3 rounded-lg shadow-md text-white hover:bg-gray-600 transition-colors h-full flex flex-col justify-between ${fadeIn ? 'opacity-100 transition-all duration-1000 transform scale-100' : 'opacity-0 transform scale-90 transition-all duration-1000'}`}
               >
                 <div>
                   <p className="text-sm font-semibold flex items-center justify-between">
@@ -103,13 +117,13 @@ const FloatingAchievements = () => {
         </div>
 
         {/* Extracurricular Box */}
-        <div className="bg-gray-800 rounded-xl p-4 flex-1 flex flex-col">
-          <h4 className="text-center font-semibold text-white mb-2">Extracurricular</h4>
+        <div className="bg-gray-800 project-scrolling rounded-xl p-4 flex-1 flex flex-col overflow-y-auto max-h-[50vh] sm:max-h-[90vh]">
+          <h4 className={`text-center font-semibold text-white mb-2 ${fadeIn ? 'opacity-100 transition-all duration-1000 transform scale-100' : 'opacity-0 transform scale-90 transition-all duration-1000'}`}>Extracurricular</h4>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-grow">
             {extracurriculars.map((item, index) => (
               <div
                 key={index}
-                className="bg-gray-700 p-3 rounded-lg shadow-md text-white h-full flex flex-col"
+                className={`bg-gray-700 p-3 rounded-lg shadow-md text-white h-full flex flex-col ${fadeIn ? 'opacity-100 transition-all duration-1000 transform scale-100' : 'opacity-0 transform scale-90 transition-all duration-1000'}`}
               >
                 <Image
                   src={item.image}
@@ -126,7 +140,7 @@ const FloatingAchievements = () => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

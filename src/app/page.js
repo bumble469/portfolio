@@ -6,7 +6,7 @@ import Footer from "./components/footer/footer";
 export default function Home() {
   return (
     <>
-    <div className="flex flex-col items-center overflow-y-auto min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="flex flex-col items-center overflow-y-auto p-4 gap-y-4">
       <FloatingHeader />
       <FloatingAbout />
       <FloatingProjects/>

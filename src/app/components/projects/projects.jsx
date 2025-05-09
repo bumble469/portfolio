@@ -20,7 +20,7 @@ const projects = [
     techStack: "ASP.NET, MS SQL",
     goal: "Deliver a dynamic and responsive online food ordering platform...",
     image: project1,
-    link: "http://restaurantwebsite.somee.com/index.aspx",
+    link: "http://foodrestaurant.somee.com/index.aspx",
     videoUrl: "/project1.mp4"
   },
   {

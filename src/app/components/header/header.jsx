@@ -109,10 +109,10 @@ const FloatingHeader = () => {
                 </a>
               </div>
               <div className={`flex gap-x-6 mt-4 transition-all duration-1000 ease-out delay-500 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                <a className="!text-xs sm:text-base text-cyan-300 cursor-pointer font-medium hover:text-cyan-500 transition-all duration-300 transform hover:scale-105">
+                <a href='mailto:alishersayed100@gmail.com' className="!text-xs sm:text-base text-cyan-300 cursor-pointer font-medium hover:text-cyan-500 transition-all duration-300 transform hover:scale-105">
                   <span className="text-xs">📧</span> alishersayed100@gmail.com
                 </a>
-                <a className="!text-xs sm:text-base text-cyan-300 cursor-pointer font-medium hover:text-cyan-500 transition-all duration-300 transform hover:scale-105">
+                <a href='tel:+917977876006' className="!text-xs sm:text-base text-cyan-300 cursor-pointer font-medium hover:text-cyan-500 transition-all duration-300 transform hover:scale-105">
                   <span className="text-xs">📞</span> +91 7977876006
                 </a>
               </div>

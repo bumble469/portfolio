@@ -58,7 +58,7 @@ const projects = [
     techStack: "React (Vite), Node.js, Socket.IO, PostgreSQL",
     goal: "Enable seamless real-time communication...",
     image: project5,
-    link: "https://unitewebapp.netlify.app/",
+    link: "https://unite-chatwebapp.netlify.app/",
     videoUrl: "/project5.mp4"
   },
   {

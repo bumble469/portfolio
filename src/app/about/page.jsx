@@ -42,7 +42,7 @@ const FloatingAbout = () => {
         Passionate full-stack developer with a strong ability to create dynamic, responsive web applications. Successfully led my team to complete our final-year project, utilizing React, Node.js, Express, and Flask for seamless front-to-back integration. Graduated with a Bachelor’s in Computer Science from Kishinchand Chellaram College (GPA: 10.0) and completed Senior Secondary at St. Xavier’s College (Grade: 80%). Enthusiastic about developing smart solutions by blending design with functionality.
       </p>
 
-      <div className="flex flex-col md:flex-row w-full space-x-6">
+      <div className="flex flex-col md:flex-row w-full space-x-6 mt-6">
         <div className="flex flex-col space-y-6 w-full md:w-1/2">
           <h3 className={`text-xl text-white font-bold border-b border-gray-600 pb-2 ${fadeIn ? 'opacity-100 translate-x-0 duration-1000' : 'opacity-0 -translate-x-10 duration-1000'} transition-all duration-500`}>Education</h3>
           <div className="space-y-4">

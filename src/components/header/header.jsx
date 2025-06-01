@@ -31,6 +31,7 @@ const FloatingHeader = () => {
     home: '/',
     about: '/about',
     projects: '/projects',
+    experience: '/experience',
     achievements: '/achievements',
   };
 

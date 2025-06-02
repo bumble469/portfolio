@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { ExternalLink, FileText, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import Footer from "../../components/footer/footer.jsx";
 
 const experienceData = [
@@ -56,28 +56,24 @@ const FloatingExperience = () => {
 
   return (
     <>
-      <motion.div
+      <div
         id="experience"
         ref={experienceRef}
-        initial={{ opacity: 0, y: 50 }}
-        animate={fadeIn ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="w-full mt-44 sm:mt-48 md:mt-52 lg:mt-32 max-w-7xl mx-auto px-4 sm:px-6 py-4 border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md rounded-xl shadow-lg z-50 flex flex-col items-center"
+        className={`w-full mt-52 sm:mt-48 md:mt-52 lg:mt-32 max-w-7xl mx-auto px-4 sm:px-6 py-4 border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md rounded-xl shadow-lg z-50 flex flex-col items-center transform transition-all duration-700 ease-out ${
+          fadeIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
       >
-        <h2 className="text-2xl text-center text-white font-semibold">
+        <h2 className="text-2xl my-4 text-center text-white font-semibold">
           Experience
         </h2>
 
         <div className={`w-full mt-8 grid gap-6 ${getGridClasses()} items-start`}>
           {experienceData.map((exp, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className={`bg-gray-800/60 p-5 rounded-xl shadow-md text-white flex flex-col justify-between ${
-                experienceData.length === 1 ? "col-span-full" : ""
-              }`}
+              className={`bg-gray-800/60 p-5 rounded-xl shadow-md text-white flex flex-col justify-between transform transition-all duration-500 ease-out ${
+                fadeIn ? "opacity-100 scale-100" : "opacity-0 scale-95"
+              } ${experienceData.length === 1 ? "col-span-full" : ""}`}
             >
               <div className="flex justify-between items-start mb-4">
                 <div>
@@ -114,68 +110,57 @@ const FloatingExperience = () => {
               {exp.Skills && exp.Skills.length > 0 && (
                 <div className="mt-3">
                   <p className="text-sm text-gray-300 font-medium mb-1">Skills Learnt:</p>
-                  <div className="flex flex-wrap gap-2" aria-label="Skills learnt in the experience">
+                  <div className="flex flex-wrap gap-2">
                     {exp.Skills.map((skill, idx) => (
-                      <motion.span
+                      <span
                         key={idx}
-                        className="px-3 py-1 bg-blue-600/60 text-sm rounded-full text-white border border-blue-400 shadow-sm hover:scale-105 transition-transform"
-                        whileHover={{ scale: 1.1 }}
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.1, duration: 0.3 }}
+                        className="px-3 py-1 bg-blue-600/60 text-sm rounded-full text-white border border-blue-400 shadow-sm transform transition-transform duration-300 hover:scale-105"
+                        style={{ transitionDelay: `${idx * 100}ms` }}
                       >
                         {skill}
-                      </motion.span>
+                      </span>
                     ))}
                   </div>
                 </div>
               )}
-            </motion.div>
+            </div>
           ))}
         </div>
-      </motion.div>
+      </div>
 
       <AnimatePresence>
         {modalOpen && (
-            <>
-            {/* Disable background scroll when modal is open */}
+          <>
             <style>{`body { overflow: hidden; }`}</style>
-
-            <motion.div
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex justify-center items-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={closeModal}
+            <div
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex justify-center items-center animate-fadeIn"
+              onClick={closeModal}
             >
-                <motion.div
-                className="bg-gray-900 rounded-lg shadow-lg max-w-4xl w-full max-h-[85vh] p-4 relative pointer-events-auto overflow-hidden my-16"
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0.8 }}
-                transition={{ duration: 0.3 }}
+              <div
+                className="bg-gray-900 rounded-lg shadow-lg max-w-4xl w-full max-h-[85vh] p-4 relative pointer-events-auto overflow-hidden my-16 transform transition-transform duration-300 scale-100"
                 onClick={(e) => e.stopPropagation()}
-                >
+              >
                 <button
-                    onClick={closeModal}
-                    className="absolute cursor-pointer top-3 right-3 text-gray-400 hover:text-white focus:outline-none"
-                    aria-label="Close modal"
+                  onClick={closeModal}
+                  className="absolute cursor-pointer top-3 right-3 text-gray-400 hover:text-white focus:outline-none"
+                  aria-label="Close modal"
                 >
-                    <X size={24} />
+                  <X size={24} />
                 </button>
                 <h3 className="text-white text-lg mb-4">Certificate Preview</h3>
                 <iframe
-                    src={selectedPdf}
-                    title="Certificate PDF Preview"
-                    width="100%"
-                    height="600"
-                    className="rounded-md border border-gray-600"
+                  src={selectedPdf}
+                  title="Certificate PDF Preview"
+                  width="100%"
+                  height="600"
+                  className="rounded-md border border-gray-600"
                 />
-                </motion.div>
-            </motion.div>
-            </>
+              </div>
+            </div>
+          </>
         )}
-        </AnimatePresence>
+      </AnimatePresence>
+
       <Footer />
     </>
   );

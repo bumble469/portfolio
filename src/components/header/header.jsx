@@ -3,6 +3,7 @@ import { FaGithub, FaLinkedin, FaLaptopCode } from 'react-icons/fa';
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { FaHome, FaUserAlt, FaProjectDiagram, FaBriefcase, FaTrophy } from 'react-icons/fa';
 
 const FloatingHeader = () => {
   const [fadeIn, setFadeIn] = useState(false);
@@ -47,7 +48,7 @@ const FloatingHeader = () => {
         </div>
 
         <nav className="w-full sm:w-auto md:flex md:flex-1 justify-center">
-          <ul className="flex flex-wrap justify-center sm:justify-start space-x-4 sm:space-x-6 text-xs sm:text-sm md:text-base">
+          <ul className="flex flex-wrap justify-evenly space-x-4 sm:space-x-6 text-xs sm:text-sm md:text-base">
             {Object.entries(routes).map(([routeName, routePath], i) => {
               const isActive = pathname === routePath;
 
@@ -65,12 +66,22 @@ const FloatingHeader = () => {
                       text-white
                       transition duration-300
                       hover:text-cyan-400 
-                      hover:border-cyan-400 
-                      hover:border-b-2
-                      ${isActive ? 'border-b-2 border-cyan-400' : 'border-b-2 border-transparent'}
+                      ${isActive ? '!text-cyan-400 md:border-b-2 border-cyan-400' : 'md:border-b-2 border-transparent'}
                     `}
                   >
+                    <span className="sm:hidden">
+                    {{
+                      home: <FaHome size={16} />,
+                      about: <FaUserAlt size={16} />,
+                      projects: <FaProjectDiagram size={16} />,
+                      experience: <FaBriefcase size={16} />,
+                      achievements: <FaTrophy size={16} />
+                    }[routeName]}
+                  </span>
+                  <span className="hidden sm:inline">
                     {routeName.charAt(0).toUpperCase() + routeName.slice(1)}
+                  </span>
+
                   </Link>
                 </li>
               );

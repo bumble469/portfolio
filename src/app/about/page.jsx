@@ -35,9 +35,9 @@ const FloatingAbout = () => {
     <div
       id="about"
       ref={aboutRef}
-      className="w-full mt-46 md:mt-50 lg:mt-29 max-w-7xl mx-auto px-4 sm:px-6 py-4 border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md rounded-xl shadow-lg z-50 flex flex-col items-center justify-between"
+      className="w-full mt-52 md:mt-50 lg:mt-29 max-w-7xl mx-auto px-4 sm:px-6 py-4 border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md rounded-xl shadow-lg z-50 flex flex-col items-center justify-between"
     >
-      <h2 ref={aboutRef} className={`text-2xl text-center text-white font-semibold ${fadeIn ? 'opacity-100 translate-x-0 duration-1000' : 'opacity-0 -translate-x-10 duration-1000'} transition-all duration-500`}>About Me</h2>
+      <h2 ref={aboutRef} className={`text-2xl my-4 text-center text-white font-semibold ${fadeIn ? 'opacity-100 translate-x-0 duration-1000' : 'opacity-0 -translate-x-10 duration-1000'} transition-all duration-500`}>About Me</h2>
       <p className={`text-white text-left text-justify text-sm md:text-base ${fadeIn ? 'opacity-100 translate-x-0 duration-1000' : 'opacity-0 -translate-x-10 duration-1000'} transition-all duration-500`}>
         Passionate full-stack developer with a strong ability to create dynamic, responsive web applications. Successfully led my team to complete our final-year project, utilizing React, Node.js, Express, and Flask for seamless front-to-back integration. Graduated with a Bachelor’s in Computer Science from Kishinchand Chellaram College (GPA: 10.0) and completed Senior Secondary at St. Xavier’s College (Grade: 80%). Enthusiastic about developing smart solutions by blending design with functionality.
       </p>
@@ -97,7 +97,7 @@ const FloatingAbout = () => {
             <h4 className={`text-white text-lg font-semibold flex items-center gap-2`}>
               🎨 Sketch work
             </h4>
-            <p className={`text-gray-300 text-sm mt-1`}>
+            <p className={`text-gray-300 text-sm mt-1 text-justify`}>
               I've always had a passion for bringing ideas to life, which started from my early love for sketching and digital art. These creative expressions laid the foundation for my journey into tech, where I combine artistic design with functional solutions.
             </p>
 

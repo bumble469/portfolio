@@ -52,9 +52,9 @@ const ProjectModal = ({ image, videoUrl, features, techstack, goals, isOpen, onC
                 {videoUrl ? (
                   <button
                     onClick={() => setShowVideo(true)}
-                    className="mt-4 py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                    className="mt-4 py-2 px-6 cursor-pointer bg-gradient-to-r from-blue-800 to-blue-900 text-white font-medium rounded-md shadow-md hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-all duration-300 ease-in-out transform hover:scale-105"
                   >
-                    View Video
+                    🎬 View Video
                   </button>
                 ) : null}
 

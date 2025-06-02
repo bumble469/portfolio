@@ -45,7 +45,7 @@ const projects = [
   },
   {
     name: "Student Academic Tracker",
-    features: "ML predictions for attendance risk and marks...",
+    features: "Smart dashboard with real-time semester insights, attendance statistics, recent exam updates, strong and weak subjects, low attendance alerts, upcoming events with infographics, performance page with all semester data, daily attendance tables, detailed marks table with infographics, marks prediction using linear regression based on current and past two semesters, attendance risk forecasting using last 5 weeks data with trends by teacher, lecture type, timing and day, day-wise prediction for upcoming timetable, teacher chat module for direct messaging, feedback page for parents, student profile with academic and personal info, multi-language support in 5 languages",
     techStack: "ReactJS, Material-UI, SQL Server, Express, ML",
     goal: "To provide real-time academic tracking for parents...",
     image: project4,
@@ -54,7 +54,7 @@ const projects = [
   },
   {
     name: "Unite: Real-Time Chat App",
-    features: "OTP signup, Real-time messaging, Friend system, File sharing",
+    features: "OTP signup, Real-time messaging, Friend request system, File sharing in private chats, Public and private rooms with real-time event handling",
     techStack: "React (Vite), Node.js, Socket.IO, PostgreSQL",
     goal: "Enable seamless real-time communication...",
     image: project5,
@@ -63,7 +63,7 @@ const projects = [
   },
   {
     name: "Docuvault: E-Document Storage",
-    features: "Efficient file storage, AI-powered generation, secure sharing",
+    features: "Efficient file storage, AI-powered generation, Secure sharing, Document size compression for effective storage, Previews, Dummy Aadhar linking for unlocking features after registering, Supports multiple documents with content viewing and filtering, Profile management and activity log for tracking, Gemini API key integrated to generate documents based on user prompts, Built-in prompt engineering to generate documents by parsing HTML using React libraries allowing downloads, File sharing with expiry limits",
     techStack: "FastAPI (JWT), React (Vite), MongoDB, Google Gemini API",
     goal: "Provide a secure and intelligent platform for document management...",
     image: project6,
@@ -72,7 +72,7 @@ const projects = [
   },
   {
     name: "WeCaterers: Catering Reservation System",
-    features: "Browse and book caterers, Manage carts and place orders, Rate caterers, Caterers manage profiles and menus, Dedicated user and caterer dashboards, Secure JWT-based authentication, Role-based access control for users, caterers, and admins, Email OTP verification for added security, Admin dashboard for monitoring and oversight",
+    features: "Browse and book caterers, Manage carts and place orders, Rate caterers, Caterers manage profiles and menus, Dedicated user and caterer dashboards, Secure JWT-based authentication, Role-based access control for users caterers admins, Email OTP verification for added security, Admin dashboard for monitoring and oversight",
     techStack: "NextJS, Prisma ORM, PostgreSQL, Tailwind CSS",
     goal: "Create a comprehensive catering reservation system...",
     image: project7,
@@ -92,7 +92,6 @@ const projects = [
 
 const FloatingProjects = () => {
   const [fadeIn, setFadeIn] = useState(false);
-  const [fadeItems, setFadeItems] = useState(Array(projects.length).fill(false));
   const [isModalOpen, setIsModalOpen] = useState(false);
   const projectsRef = useRef(null);
   const [modalContent, setModalContent] = useState({
@@ -138,10 +137,10 @@ const FloatingProjects = () => {
       <div
        ref={projectsRef}
         id="projects"
-          className="w-full mt-46 md:mt-50 lg:mt-29 max-w-7xl mx-auto px-4 sm:px-6 py-3 border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md rounded-xl shadow-lg z-50 flex flex-col items-center justify-between"
+          className="w-full mt-52 md:mt-50 lg:mt-29 max-w-7xl mx-auto px-4 sm:px-6 py-3 border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md rounded-xl shadow-lg z-50 flex flex-col items-center justify-between"
         >
-        <h2 className="text-2xl text-center text-white font-semibold mb-2">Projects</h2>
-        <div className="flex flex-wrap gap-4 ">
+        <h2 ref={projectsRef} className={`text-2xl my-4 text-center text-white font-semibold ${fadeIn ? 'opacity-100 translate-x-0 duration-1000' : 'opacity-0 -translate-x-10 duration-1000'} transition-all duration-500`}>Projects</h2>
+        <div className="flex flex-wrap gap-4">
           {/* Row 1 */}
           <div className="flex project-scrolling overflow-x-auto space-x-4 mx-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900" style={{ maxWidth: "calc(100vw - 100px)" }}>            
             {projects.slice(0, Math.ceil(projects.length / 2)).map((project, index) => (

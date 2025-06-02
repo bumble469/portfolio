@@ -88,9 +88,9 @@ const FloatingAchievements = () => {
       <div
         ref={achievementsRef}
         id="achievements"
-        className="w-full mt-46 md:mt-50 lg:mt-29 overflow-x-auto project-scrolling max-w-7xl mx-auto px-4 sm:px-6 py-3 border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md rounded-xl shadow-lg z-50 flex flex-col items-center justify-between"
+        className="w-full mt-52 md:mt-50 lg:mt-29 overflow-x-auto project-scrolling max-w-7xl mx-auto px-4 sm:px-6 py-3 border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md rounded-xl shadow-lg z-50 flex flex-col items-center justify-between"
         >
-        <h2 className={`text-2xl text-center text-white font-semibold mb-2 ${fadeIn ? 'opacity-100 transition-all duration-1000 transform scale-100' : 'opacity-0 transform scale-90 transition-all duration-1000'}`}>Achievements</h2>
+        <h2 className={`text-2xl my-4 text-center text-white font-semibold mb-2 ${fadeIn ? 'opacity-100 transition-all duration-1000 transform scale-100' : 'opacity-0 transform scale-90 transition-all duration-1000'}`}>Achievements</h2>
         <div className="flex flex-col md:flex-row gap-6 mt-4">
           <div className="bg-gray-800 rounded-xl p-4 flex-1 flex flex-col">
             <h4 className={`text-center font-semibold text-white mb-2 ${fadeIn ? 'opacity-100 transition-all duration-1000 transform scale-100' : 'opacity-0 transform scale-90 transition-all duration-1000'}`}>Certifications</h4>

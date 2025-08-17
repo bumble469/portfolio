@@ -7,6 +7,16 @@ import Footer from "../../components/footer/footer.jsx";
 const experienceData = [
   {
     Position: "Full-Stack Developer",
+    Institution: "Site Guru Pvt Ltd",
+    Duration: "June 2025 (Ongoing)",
+    Type: "Internship | Remote",
+    Link: "",
+    Certificate: "",
+    Description: "Currently interning as a developer, gaining hands-on experience with Vuetify, SQL, and JavaScript. Worked on multiple projects ranging from basic to advanced, including taking over partially completed projects and driving them to completion. Actively collaborating with project managers, UI/UX designers, and application testers to deliver high-quality solutions. Engaging with real clients to understand project requirements, improve user experience, and implement effective technical solutions.",
+    Skills: ["VueJS", "SQL", "JavaScript", "Vuetify-2"],
+  },
+  {
+    Position: "Full-Stack Developer",
     Institution: "Unified Mentor Pvt Ltd",
     Duration: "April 2025 - May 2025 (2 months)",
     Type: "Internship | Remote",
@@ -109,7 +119,7 @@ const FloatingExperience = () => {
 
               {exp.Skills && exp.Skills.length > 0 && (
                 <div className="mt-3">
-                  <p className="text-sm text-gray-300 font-medium mb-1">Skills Learnt:</p>
+                  <p className="text-sm text-gray-300 font-medium mb-1">Skills Used:</p>
                   <div className="flex flex-wrap gap-2">
                     {exp.Skills.map((skill, idx) => (
                       <span

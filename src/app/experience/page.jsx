@@ -2,17 +2,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ExternalLink, FileText, X } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
-import Footer from "../../components/footer/footer.jsx";
 
 const experienceData = [
   {
     Position: "Full-Stack Developer",
     Institution: "Site Guru Pvt Ltd",
-    Duration: "June 2025 (Ongoing)",
+    Duration: "June 2025 - December 2025",
     Type: "Internship | Remote",
     Link: "",
     Certificate: "",
-    Description: "Currently interning as a developer, gaining hands-on experience with Vuetify, SQL, and JavaScript. Worked on multiple projects ranging from basic to advanced, including taking over partially completed projects and driving them to completion. Actively collaborating with project managers, UI/UX designers, and application testers to deliver high-quality solutions. Engaging with real clients to understand project requirements, improve user experience, and implement effective technical solutions.",
+    Description: "Worked as a developer, gaining hands-on experience with Vuetify, SQL, and JavaScript. Contributed to multiple projects ranging from basic to advanced, including taking ownership of partially completed projects and driving them to completion. Collaborated closely with project managers, UI/UX designers, and application testers to deliver high-quality solutions. Engaged directly with clients to understand project requirements, improve user experience, and implement effective technical solutions.",
     Skills: ["VueJS", "SQL", "JavaScript", "Vuetify-2"],
   },
   {
@@ -69,7 +68,7 @@ const FloatingExperience = () => {
       <div
         id="experience"
         ref={experienceRef}
-        className={`w-full mt-52 sm:mt-48 md:mt-52 lg:mt-32 max-w-7xl mx-auto px-4 sm:px-6 py-4 border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md rounded-xl shadow-lg z-50 flex flex-col items-center transform transition-all duration-700 ease-out ${
+        className={`w-full sm:mt-8 md:mt-12 max-w-7xl mx-auto px-4 sm:px-6 py-4 border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md rounded-xl shadow-lg z-50 flex flex-col items-center transform transition-all duration-700 ease-out ${
           fadeIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
@@ -170,8 +169,6 @@ const FloatingExperience = () => {
           </>
         )}
       </AnimatePresence>
-
-      <Footer />
     </>
   );
 };

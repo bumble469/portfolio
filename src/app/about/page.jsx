@@ -8,7 +8,6 @@ import drawing2 from '../../assets/images/drawing2.jpg';
 import drawing3 from '../../assets/images/drawing3.jpg';
 import { Cpu, Code, Layers, Users, Laptop } from 'lucide-react';
 import Image from "next/image";
-import Footer from "../../components/footer/footer.jsx";
 
 const FloatingAbout = () => {
   const [fadeIn, setFadeIn] = useState(false);
@@ -35,7 +34,7 @@ const FloatingAbout = () => {
     <div
       id="about"
       ref={aboutRef}
-      className="w-full mt-52 md:mt-50 lg:mt-29 max-w-7xl mx-auto px-4 sm:px-6 py-4 border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md rounded-xl shadow-lg z-50 flex flex-col items-center justify-between"
+      className="w-full sm:mt-8 md:mt-12 max-w-7xl mx-auto px-4 sm:px-6 py-4 border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md rounded-xl shadow-lg z-50 flex flex-col items-center justify-between"
     >
       <h2 ref={aboutRef} className={`text-2xl my-4 text-center text-white font-semibold ${fadeIn ? 'opacity-100 translate-x-0 duration-1000' : 'opacity-0 -translate-x-10 duration-1000'} transition-all duration-500`}>About Me</h2>
       <p className={`text-white text-left text-justify text-sm md:text-base ${fadeIn ? 'opacity-100 translate-x-0 duration-1000' : 'opacity-0 -translate-x-10 duration-1000'} transition-all duration-500`}>
@@ -167,7 +166,7 @@ const FloatingAbout = () => {
         </div>
       </div>
     </div>
-    <Footer /></>
+    </>
   );
 };
 

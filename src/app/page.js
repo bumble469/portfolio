@@ -4,13 +4,13 @@ import myimage from '../assets/images/myimage.jpg';
 import myimage1 from '../assets/images/myimage1.jpg';
 import Image from 'next/image';
 import ResumeModal from '../components/header/components/resumemodal.jsx';
-import Footer from "../components/footer/footer.jsx";
+
 export default function Home() {
   const [frontImage, setFrontImage] = useState('first');
   const [isResumeOpen, setIsResumeModalOpen] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
   const homeRef = useRef(null);
-  
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setFadeIn(entry.isIntersecting),
@@ -24,10 +24,10 @@ export default function Home() {
 
   }, []);
 
-  return(
+  return (
     <div
       ref={homeRef}
-      className={`min-h-fit px-8 mt-46 md:mt-50 lg:mt-29 p-4 max-w-screen-xl mx-auto w-full transition-all duration-1000 ${fadeIn ? 'opacity-100' : 'opacity-0'}`}
+      className={`px-8 sm:mt-8 md:mt-12 py-8 max-w-screen-xl mx-auto w-full transition-all duration-1000 ${fadeIn ? 'opacity-100' : 'opacity-0'} `}
     >
       <div className="flex flex-col md:flex-row items-center justify-between w-full gap-y-6">
         <div className={`w-full md:w-1/2 md:pr-8 transition-all duration-1000 ease-out delay-100 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
@@ -51,9 +51,8 @@ export default function Home() {
             </a>
           </div>
           <p className={`text-sm text-gray-300 mt-3 text-justify transition-all duration-1000 ease-out delay-600 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            Aspiring full-stack developer with experience in React, Node.js, Express, and Flask. Skilled in building responsive web apps using HTML, CSS, Bootstrap, and ASP.NET. Proficient in Python, Java, Kotlin, and C#, with knowledge of Git, Android Studio, and databases like MySQL, MongoDB, and PostgreSQL.
+            Full-stack developer with hands-on experience in React, Node.js, Express, and Flask. Skilled in building responsive web applications using HTML, CSS, and JavaScript. Experienced with libraries and frameworks such as React, Next.js, and Vuetify. Proficient in Python and C#, with working knowledge of Git, Android Studio, and databases including MySQL, MongoDB, and PostgreSQL.
           </p>
-
           <div className={`flex flex-wrap gap-2 mt-4 transition-all duration-1000 ease-out delay-700 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             {[
               'React', 'Material-UI', 'Next.js', 'Tailwind CSS',
@@ -100,7 +99,6 @@ export default function Home() {
           isOpen={isResumeOpen}
         />
       )}
-      <Footer />
     </div>
   )
 }

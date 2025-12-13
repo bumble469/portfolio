@@ -39,7 +39,7 @@ const FloatingHeader = () => {
   return (
     <div
       ref={headerRef}
-      className="absolute top-6 right-6 left-6 max-w-7xl mx-auto border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md px-4 sm:px-6 py-3 rounded-xl shadow-lg z-50 flex flex-col items-center justify-between"
+      className="sticky top-2 border-2 mx-2 my-4 border-gray-800/50 bg-gray-900/40 backdrop-blur-md px-4 sm:px-6 py-3 rounded-xl shadow-lg z-50 flex flex-col items-center justify-between"
     >
       <div className="flex flex-col xs:flex-col sm:flex-col md:flex-col lg:flex-row items-center justify-between w-full gap-y-4">
         <div className={`text-white text-base sm:text-lg md:text-xl font-bold whitespace-nowrap flex items-center space-x-2 transition-all duration-1000 ease-out delay-200 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>

@@ -3,56 +3,35 @@ import { useEffect, useState, useRef } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { HiSparkles } from 'react-icons/hi2';
 import qaApi from '@/lib/qaApi';
+import { TypeAnimation } from 'react-type-animation';
 
-export const useTypingEffect = (text, speed = 20) => {
-  const [output, setOutput] = useState("");
-  const intervalRef = useRef(null);
-
-  useEffect(() => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-
-    if (!text) {
-      setOutput("");
-      return;
-    }
-
-    let index = 0;
-    setOutput("");
-
-    intervalRef.current = setInterval(() => {
-      if (index >= text.length) {
-        clearInterval(intervalRef.current);
-        return;
-      }
-
-      setOutput(prev => prev + text.charAt(index));
-      index++;
-    }, speed);
-
-    return () => clearInterval(intervalRef.current);
-  }, [text, speed]);
-
-  return output;
-};
+const DEFAULT_PROMPTS = [
+  "Tell me about Alisher",
+  "What is Alisher’s tech stack?",
+  "Describe Alisher’s projects",
+  "What is Alisher’s educational background?",
+  "How does this assistant work?"
+];
 
 const AssistantDialog = ({ open, onClose }) => {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const animatedAnswer = useTypingEffect(answer, 20);
 
-  const askQuestion = async () => {
-    if (!question.trim()) return;
+  const askQuestion = async (autoQuest) => {
+    const finalQuestion =
+      typeof autoQuest === 'string' ? autoQuest : question;
 
+    if (!finalQuestion.trim()) return;
+
+    setQuestion(finalQuestion);
     setLoading(true);
     setError(null);
     setAnswer(null);
 
     try {
-      const res = await qaApi.post('/api/ask', { question });
+      const res = await qaApi.post('/api/ask', { question: finalQuestion });
       setAnswer(res.data.answer);
     } catch (err) {
       setError('Something went wrong. Please try again.');
@@ -60,6 +39,7 @@ const AssistantDialog = ({ open, onClose }) => {
       setLoading(false);
     }
   };
+
 
   return (
     <div
@@ -98,9 +78,9 @@ const AssistantDialog = ({ open, onClose }) => {
                 <HiSparkles className="text-cyan-400" size={28} />
                 <h2 className="text-xl font-semibold">Ask something</h2>
               </div>
-             <p className="text-sm text-gray-400">
-              I am here on behalf of Alisher to answer questions about his skills, projects, experience, and background.
-            </p>
+              <p className="text-sm text-gray-400">
+                I can help answer questions about Alisher’s education, experience, projects, and tech stack, or explain how I work.
+              </p>
             </div>
 
             <div className="relative mt-6">
@@ -149,6 +129,7 @@ const AssistantDialog = ({ open, onClose }) => {
                 rows={3}
                 className="w-full resize-none rounded-lg bg-gray-800 border border-gray-700 p-3 text-sm"
               />
+
               <button
                 onClick={askQuestion}
                 disabled={loading || !question.trim()}
@@ -159,14 +140,32 @@ const AssistantDialog = ({ open, onClose }) => {
             </div>
 
             <div className="mt-4 sm:mt-0 flex-1 overflow-y-auto py-4">
+              {!question.trim() && (
+                <div className="flex flex-wrap gap-2 pointer-events-auto">
+                  {DEFAULT_PROMPTS.map((p, i) => (
+                    <button
+                      key={i}
+                      onClick={() => askQuestion(p)}
+                      type="button"
+                      className="text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 px-2.5 py-1.5 rounded-md"
+                    >
+                      {p}
+                    </button>
+                  ))}
+                </div>
+              )}
               {loading && (
                 <p className="text-sm text-cyan-400">Thinking…</p>
               )}
 
-              {animatedAnswer && (
-                <p className="text-sm text-gray-300 leading-relaxed text-justify animate-fadeIn">
-                  {animatedAnswer}
-                </p>
+              {answer && (
+                <TypeAnimation
+                  sequence={[answer]}
+                  speed={90}
+                  wrapper="p"
+                  className="text-sm text-gray-300 leading-relaxed text-justify animate-fadeIn"
+                  cursor={false}
+                />
               )}
 
               {error && (

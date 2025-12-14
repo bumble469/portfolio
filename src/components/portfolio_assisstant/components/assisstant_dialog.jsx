@@ -18,8 +18,31 @@ const AssistantDialog = ({ open, onClose }) => {
   const [answer, setAnswer] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [apiAwake, setApiAwake] = useState(false);
+  const [wakingUp, setWakingUp] = useState(false);
+
+  useEffect(() => {
+    if (!open || apiAwake) return;
+
+    const wakeUpApi = async () => {
+      setWakingUp(true);
+      try {
+        await qaApi.get('/', { timeout: 30000 });
+        setApiAwake(true);
+      } catch (err) {
+        setApiAwake(false);
+      } finally {
+        setWakingUp(false);
+      }
+    };
+
+    wakeUpApi();
+  }, [open]); 
 
   const askQuestion = async (autoQuest) => {
+    if (!apiAwake) {
+      return;
+    }
     const finalQuestion =
       typeof autoQuest === 'string' ? autoQuest : question;
 
@@ -31,7 +54,7 @@ const AssistantDialog = ({ open, onClose }) => {
     setAnswer(null);
 
     try {
-      const res = await qaApi.post('/api/ask', { question: finalQuestion });
+      const res = await qaApi.post('/api/ask', { question: finalQuestion }, { timeout: 12000 });
       setAnswer(res.data.answer);
     } catch (err) {
       setError('Something went wrong. Please try again.');
@@ -103,13 +126,12 @@ const AssistantDialog = ({ open, onClose }) => {
                 </button>
               )}
             </div>
-
             <button
               onClick={askQuestion}
-              disabled={loading || !question.trim()}
+              disabled={loading || !question.trim() || wakingUp}
               className="mt-4 w-full py-2 rounded-md text-sm bg-cyan-500 hover:bg-cyan-600 disabled:opacity-50"
             >
-              Ask
+              {wakingUp ? 'Assistant is waking up...' : 'Ask'}
             </button>
           </div>
 
@@ -129,13 +151,12 @@ const AssistantDialog = ({ open, onClose }) => {
                 rows={3}
                 className="w-full resize-none rounded-lg bg-gray-800 border border-gray-700 p-3 text-sm"
               />
-
               <button
                 onClick={askQuestion}
                 disabled={loading || !question.trim()}
                 className="mt-3 w-full py-2 rounded-md text-sm bg-cyan-500 hover:bg-cyan-600 disabled:opacity-50"
               >
-                Ask
+                {wakingUp ? 'Assistant is waking up...' : 'Ask'}
               </button>
             </div>
 

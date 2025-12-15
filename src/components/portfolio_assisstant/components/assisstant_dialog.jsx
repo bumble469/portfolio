@@ -107,11 +107,9 @@ const AssistantDialog = ({ open, onClose }) => {
           ${open ? 'translate-y-0 scale-100' : 'translate-y-6 scale-95'}
         `}
       >
-        <div className="sm:hidden flex items-center justify-between p-4 border-b border-gray-800">
+        <div className="sm:hidden flex items-center p-4 border-b border-gray-800">
+          <HiSparkles className="text-cyan-400 mr-2" size={28} />
           <h2 className="text-lg font-semibold">Ask something</h2>
-          <button onClick={handleClose} className="text-gray-400 hover:text-white">
-            <IoClose size={22} />
-          </button>
         </div>
 
         <div className="flex flex-col sm:flex-row min-h-[420px]">

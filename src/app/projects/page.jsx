@@ -94,6 +94,7 @@ const FloatingProjects = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const projectsRef = useRef(null);
   const [modalContent, setModalContent] = useState({
+    name: '',
     image: '',
     features: '',
     techStack: '',
@@ -101,8 +102,8 @@ const FloatingProjects = () => {
     videoUrl: ''
   });
 
-  const openModal = (image, features, techStack, goal, videoUrl) => {
-    setModalContent({ image, features, techStack, goal, videoUrl });
+  const openModal = (name, image, features, techStack, goal, videoUrl) => {
+    setModalContent({ name, image, features, techStack, goal, videoUrl });
     setIsModalOpen(true);
   };
 
@@ -127,6 +128,7 @@ const FloatingProjects = () => {
       <ProjectModal
         isOpen={isModalOpen}
         onClose={closeModal}
+        name={modalContent.name}
         image={modalContent.image}
         features={modalContent.features}
         techstack={modalContent.techStack}
@@ -171,7 +173,7 @@ const FloatingProjects = () => {
                   <Eye
                     className="h-4 w-4 text-white cursor-pointer"
                     onClick={() =>
-                      openModal(project.image, project.features, project.techStack, project.goal, project.videoUrl)
+                      openModal(project.name, project.image, project.features, project.techStack, project.goal, project.videoUrl)
                     }
                   />
                 </div>
@@ -210,7 +212,7 @@ const FloatingProjects = () => {
                   <Eye
                     className="h-4 w-4 text-white cursor-pointer"
                     onClick={() =>
-                      openModal(project.image, project.features, project.techStack, project.goal, project.videoUrl)
+                      openModal(project.name, project.image, project.features, project.techStack, project.goal, project.videoUrl)
                     }
                   />
                 </div>

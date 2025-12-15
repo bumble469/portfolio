@@ -25,23 +25,33 @@ const AssistantDialog = ({ open, onClose }) => {
   const [wakingUp, setWakingUp] = useState(false);
 
   useEffect(() => {
+    if (!open) return;
+
     setWakingUp(true);
-    qaApi.get('/', { timeout: 25000 }).then((res) => {
-      if(res.data.status === 200){
-        setApiAwake(true);
-      } else {
-        qaApi.get('/', { timeout: 15000 }).then((res) => {
-          if(res.data.status === 200){
-            setApiAwake(true);
-          }
-        })
-      }
-    }).catch((err) => {
-      console.log("API wake up logic failed", err);
-    }).finally(() => {
-      setWakingUp(false);
-    })
-  }, [open])
+
+    qaApi
+      .get('/health', { timeout: 30000 })
+      .then((res) => {
+        if (res.status === 200) {
+          setApiAwake(true);
+        }
+      })
+      .catch(() => {
+        console.log("First wake failed, retrying...");
+        return qaApi.get('/health', { timeout: 20000 });
+      })
+      .then((res) => {
+        if (res?.status === 200) {
+          setApiAwake(true);
+        }
+      })
+      .catch((err) => {
+        console.log("API wake up logic failed", err);
+      })
+      .finally(() => {
+        setWakingUp(false);
+      });
+  }, [open]);
 
   const askQuestion = async (autoQuest) => {
     const finalQuestion =

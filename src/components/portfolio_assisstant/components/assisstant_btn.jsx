@@ -1,5 +1,6 @@
 'use client'
 import { BsChatDots  } from 'react-icons/bs';
+import { MdSmartToy } from 'react-icons/md';
 
 const AssistantButton = ({ onClick }) => {
   return (
@@ -31,7 +32,7 @@ const AssistantButton = ({ onClick }) => {
         focus:ring-cyan-300
       "
     >
-      <BsChatDots size={26} />
+      <MdSmartToy size={26} />
     </button>
   );
 };

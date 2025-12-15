@@ -4,13 +4,15 @@ import { IoClose } from 'react-icons/io5';
 import { HiSparkles } from 'react-icons/hi2';
 import qaApi from '@/lib/qaApi';
 import { TypeAnimation } from 'react-type-animation';
+import Lottie from "lottie-react";
 
 const DEFAULT_PROMPTS = [
-  "Tell me about Alisher",
-  "What is Alisher’s tech stack?",
+  "About Alisher",
+  "Alisher’s tech stack",
   "Describe Alisher’s projects",
-  "What is Alisher’s educational background?",
-  "How does this assistant work?"
+  "Alisher’s educational background?",
+  "How do you work?",
+  "What experience does Alisher have?"
 ];
 
 const AssistantDialog = ({ open, onClose }) => {
@@ -18,31 +20,30 @@ const AssistantDialog = ({ open, onClose }) => {
   const [answer, setAnswer] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
   const [apiAwake, setApiAwake] = useState(false);
   const [wakingUp, setWakingUp] = useState(false);
 
   useEffect(() => {
-    if (!open || apiAwake) return;
-
-    const wakeUpApi = async () => {
-      setWakingUp(true);
-      try {
-        await qaApi.get('/', { timeout: 30000 });
+    setWakingUp(true);
+    qaApi.get('/', { timeout: 25000 }).then((res) => {
+      if(res.data.status === 200){
         setApiAwake(true);
-      } catch (err) {
-        setApiAwake(false);
-      } finally {
-        setWakingUp(false);
+      } else {
+        qaApi.get('/', { timeout: 15000 }).then((res) => {
+          if(res.data.status === 200){
+            setApiAwake(true);
+          }
+        })
       }
-    };
-
-    wakeUpApi();
-  }, [open]); 
+    }).catch((err) => {
+      console.log("API wake up logic failed", err);
+    }).finally(() => {
+      setWakingUp(false);
+    })
+  }, [open])
 
   const askQuestion = async (autoQuest) => {
-    if (!apiAwake) {
-      return;
-    }
     const finalQuestion =
       typeof autoQuest === 'string' ? autoQuest : question;
 
@@ -54,7 +55,7 @@ const AssistantDialog = ({ open, onClose }) => {
     setAnswer(null);
 
     try {
-      const res = await qaApi.post('/api/ask', { question: finalQuestion }, { timeout: 12000 });
+      const res = await qaApi.post('/api/ask', { question: finalQuestion }, { timeout: 20000 });
       setAnswer(res.data.answer);
     } catch (err) {
       setError('Something went wrong. Please try again.');
@@ -63,6 +64,15 @@ const AssistantDialog = ({ open, onClose }) => {
     }
   };
 
+  const handleClose = () => {
+    setQuestion('');
+    setAnswer(null);
+    setError(null);
+    setLoading(false);
+    setWakingUp(false);
+    setApiAwake(false);
+    onClose();
+  }
 
   return (
     <div
@@ -74,7 +84,7 @@ const AssistantDialog = ({ open, onClose }) => {
     >
       <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-        onClick={onClose}
+        onClick={handleClose}
       />
 
       <div
@@ -89,7 +99,7 @@ const AssistantDialog = ({ open, onClose }) => {
       >
         <div className="sm:hidden flex items-center justify-between p-4 border-b border-gray-800">
           <h2 className="text-lg font-semibold">Ask something</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-white">
+          <button onClick={handleClose} className="text-gray-400 hover:text-white">
             <IoClose size={22} />
           </button>
         </div>
@@ -137,10 +147,10 @@ const AssistantDialog = ({ open, onClose }) => {
 
           <div className="flex-1 p-4 sm:p-6 flex flex-col">
             <button
-              onClick={onClose}
-              className="hidden sm:block absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"
+              onClick={handleClose}
+              className="absolute top-4 right-4 z-50 text-gray-400 hover:text-white cursor-pointer"
             >
-              <IoClose size={24} />
+              <IoClose size={28} />
             </button>
 
             <div className="sm:hidden">
@@ -153,44 +163,65 @@ const AssistantDialog = ({ open, onClose }) => {
               />
               <button
                 onClick={askQuestion}
-                disabled={loading || !question.trim()}
+                disabled={loading || !question.trim() || wakingUp}
                 className="mt-3 w-full py-2 rounded-md text-sm bg-cyan-500 hover:bg-cyan-600 disabled:opacity-50"
               >
                 {wakingUp ? 'Assistant is waking up...' : 'Ask'}
               </button>
             </div>
 
-            <div className="mt-4 sm:mt-0 flex-1 overflow-y-auto py-4">
-              {!question.trim() && (
-                <div className="flex flex-wrap gap-2 pointer-events-auto">
-                  {DEFAULT_PROMPTS.map((p, i) => (
-                    <button
-                      key={i}
-                      onClick={() => askQuestion(p)}
-                      type="button"
-                      className="text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 px-2.5 py-1.5 rounded-md"
-                    >
-                      {p}
-                    </button>
-                  ))}
+            <div className="mt-4 sm:mt-0 flex-1 overflow-y-auto py-4 relative">
+              {apiAwake && (
+                <>
+                  {!question.trim() && !wakingUp && (
+                    <div className="flex flex-wrap gap-2 pointer-events-auto mb-4">
+                      {DEFAULT_PROMPTS.map((p, i) => (
+                        <button
+                          key={i}
+                          onClick={() => askQuestion(p)}
+                          type="button"
+                          className="text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 px-2.5 py-1.5 rounded-md"
+                        >
+                          {p}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {loading && (
+                    <p className="text-sm text-cyan-400">Thinking…</p>
+                  )}
+
+                  {answer && (
+                    <TypeAnimation
+                      sequence={[answer]}
+                      speed={90}
+                      wrapper="p"
+                      className="text-sm text-gray-300 leading-relaxed text-justify animate-fadeIn"
+                      cursor={false}
+                    />
+                  )}
+
+                  {error && (
+                    <p className="text-sm text-red-400">{error}</p>
+                  )}
+                </>
+              )}
+
+              {!apiAwake && (
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="flex flex-col items-center gap-3 text-center">
+                    <Lottie
+                      path="/lottie/loading-robot.json"
+                      loop
+                      autoplay
+                      className="w-40 h-40"
+                    />
+                    <p className="text-sm text-gray-400">
+                      Assistant is waking up…
+                    </p>
+                  </div>
                 </div>
-              )}
-              {loading && (
-                <p className="text-sm text-cyan-400">Thinking…</p>
-              )}
-
-              {answer && (
-                <TypeAnimation
-                  sequence={[answer]}
-                  speed={90}
-                  wrapper="p"
-                  className="text-sm text-gray-300 leading-relaxed text-justify animate-fadeIn"
-                  cursor={false}
-                />
-              )}
-
-              {error && (
-                <p className="text-sm text-red-400">{error}</p>
               )}
             </div>
           </div>

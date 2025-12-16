@@ -4,6 +4,7 @@ import myimage from '../assets/images/myimage.jpg';
 import myimage1 from '../assets/images/myimage1.jpg';
 import Image from 'next/image';
 import ResumeModal from '../components/header/components/resumemodal.jsx';
+import qaApi from "@/lib/qaApi";
 
 export default function Home() {
   const [frontImage, setFrontImage] = useState('first');
@@ -21,8 +22,11 @@ export default function Home() {
     return () => {
       if (homeRef.current) observer.unobserve(homeRef.current);
     };
-
   }, []);
+
+  useEffect(() => {
+    qaApi.get('/health')
+  }, [])
 
   return (
     <div

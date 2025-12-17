@@ -1,8 +1,5 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import kccollege from '../../assets/images/kccollegeimage.jpeg';
-import ccs from '../../assets/images/christchurchschoolimage.jpg';
-import sxc from '../../assets/images/sxcimage.jpg';
 import drawing1 from '../../assets/images/drawing1.jpg';
 import drawing2 from '../../assets/images/drawing2.jpg';
 import drawing3 from '../../assets/images/drawing3.jpg';
@@ -46,11 +43,6 @@ const FloatingAbout = () => {
           <h3 className={`text-xl text-white font-bold border-b border-gray-600 pb-2 ${fadeIn ? 'opacity-100 translate-x-0 duration-1000' : 'opacity-0 -translate-x-10 duration-1000'} transition-all duration-500`}>Education</h3>
           <div className="space-y-4">
             <div className={`bg-gray-800 p-4 rounded-lg shadow-lg transition-all duration-500 ease-in-out flex space-x-4 ${fadeIn ? 'opacity-100 translate-x-0 duration-1000' : 'opacity-0 -translate-x-10 duration-1000'}`}>
-              <Image
-                src={kccollege}
-                alt="College"
-                className="w-12 h-12 rounded-full object-cover h-25 w-25"
-              />
               <div className="flex flex-col">
                 <h4 className="text-white font-semibold">Bachelor of Computer Science</h4>
                 <p className="text-gray-400 text-sm">Kishinchand Chellaram College</p>
@@ -60,11 +52,6 @@ const FloatingAbout = () => {
             </div>
 
             <div className={`bg-gray-800 p-4 rounded-lg shadow-lg transition-all duration-500 ease-in-out flex space-x-4 ${fadeIn ? 'opacity-100 translate-x-0 duration-1000' : 'opacity-0 -translate-x-10 duration-1000'}`}>
-              <Image
-                src={sxc}
-                alt="School"
-                className="w-12 h-12 rounded-full object-cover h-25 w-25"
-              />
               <div className="flex flex-col">
                 <h4 className="text-white font-semibold">HSC</h4>
                 <p className="text-gray-400 text-sm">St. Xavier's College</p>
@@ -74,11 +61,6 @@ const FloatingAbout = () => {
             </div>
 
             <div className={`bg-gray-800 p-4 rounded-lg shadow-lg transition-all duration-500 ease-in-out flex space-x-4 ${fadeIn ? 'opacity-100 translate-x-0 duration-1000' : 'opacity-0 -translate-x-10 duration-1000'}`}>
-              <Image
-                src={ccs}
-                alt="Certification"
-                className="w-12 h-12 rounded-full object-cover h-25 w-25"
-              />
               <div className="flex flex-col">
                 <h4 className="text-white font-semibold">CICSE</h4>
                 <p className="text-gray-400 text-sm">Christ Church School</p>

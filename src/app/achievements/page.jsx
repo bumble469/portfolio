@@ -1,9 +1,8 @@
 "use client";
-import React, {useRef,useState,useEffect} from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { FiExternalLink } from "react-icons/fi";
 import avishkarimage from "../../assets/images/avishkarimage.jpg";
-import rckcimage from "../../assets/images/rckc.jpg";
 import shpimage from "../../assets/images/shpimage.jpg";
 import anubhavimage from "../../assets/images/anubhavimage.png";
 
@@ -63,7 +62,6 @@ const extracurriculars = [
     title: "Rotaract Club of KC",
     description: "General Body Member; participated in meetings and events.",
     date: "August 2022",
-    image: rckcimage,
   },
 ];
 
@@ -81,14 +79,14 @@ const FloatingAchievements = () => {
       if (achievementsRef.current) observer.unobserve(achievementsRef.current);
     };
   }, []);
-  
+
   return (
     <>
       <div
         ref={achievementsRef}
         id="achievements"
         className="w-full sm:mt-8 md:mt-12 overflow-x-auto project-scrolling max-w-7xl mx-auto px-4 sm:px-6 py-3 border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md rounded-xl shadow-lg z-50 flex flex-col items-center justify-between"
-        >
+      >
         <h2 className={`text-2xl my-4 text-center text-white font-semibold mb-2 ${fadeIn ? 'opacity-100 transition-all duration-1000 transform scale-100' : 'opacity-0 transform scale-90 transition-all duration-1000'}`}>Achievements</h2>
         <div className="flex flex-col md:flex-row gap-6 mt-4">
           <div className="bg-gray-800 rounded-xl p-4 flex-1 flex flex-col">
@@ -123,13 +121,19 @@ const FloatingAchievements = () => {
                   key={index}
                   className={`bg-gray-700 p-3 rounded-lg shadow-md text-white h-full flex flex-col ${fadeIn ? 'opacity-100 transition-all duration-1000 transform scale-100' : 'opacity-0 transform scale-90 transition-all duration-1000'}`}
                 >
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    width={300}
-                    height={200}
-                    className="rounded-md w-full h-36 object-cover mb-2"
-                  />
+                  {item.image ? (
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      width={300}
+                      height={200}
+                      className="rounded-md w-full h-36 object-cover mb-2"
+                    />
+                  ) : (
+                    <div className="w-full h-36 mb-2 rounded-md bg-gray-600 flex items-center justify-center text-4xl font-bold text-gray-300">
+                      {item.title.charAt(0)}
+                    </div>
+                  )}
                   <p className="text-sm font-semibold">{item.title}</p>
                   <p className="text-xs mt-1">{item.description}</p>
                   <p className="text-xs mt-1 italic text-gray-300 mt-auto">{item.date}</p>

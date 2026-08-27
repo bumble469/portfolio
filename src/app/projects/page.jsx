@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { ArrowRight, Eye } from 'lucide-react';
+import { ArrowRight, Eye, FolderKanban } from 'lucide-react';
 import { FiExternalLink } from "react-icons/fi";
 import Image from "next/image";
 import Link from "next/link";
@@ -140,7 +140,10 @@ const FloatingProjects = () => {
         id="projects"
         className="w-full sm:mt-8 md:mt-12 max-w-7xl mx-auto px-4 sm:px-6 py-3 border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md rounded-xl shadow-lg z-50 flex flex-col items-center justify-between"
         >
-        <h2 ref={projectsRef} className={`text-2xl my-4 text-center text-white font-semibold ${fadeIn ? 'opacity-100 translate-x-0 duration-1000' : 'opacity-0 -translate-x-10 duration-1000'} transition-all duration-500`}>Projects</h2>
+        <h2 ref={projectsRef} className={`text-2xl sm:text-3xl mt-4 mb-6 text-center text-white font-bold tracking-tight flex items-center justify-center gap-2 ${fadeIn ? 'opacity-100 translate-x-0 duration-1000' : 'opacity-0 -translate-x-10 duration-1000'} transition-all duration-500`}>
+          <FolderKanban className="text-cyan-400" size={24} />
+          Projects
+        </h2>
         <div className="flex flex-wrap gap-4">
           {/* Row 1 */}
           <div className="flex project-scrolling overflow-x-auto space-x-4 mx-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900" style={{ maxWidth: "calc(100vw - 100px)" }}>            

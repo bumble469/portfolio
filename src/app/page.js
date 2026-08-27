@@ -46,7 +46,7 @@ export default function Home() {
               View Resume
             </a>
           </div>
-          <div className={`flex gap-x-6 mt-4 transition-all duration-1000 ease-out delay-500 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <div className={`flex flex-col sm:flex-row gap-x-6 gap-y-2 mt-4 transition-all duration-1000 ease-out delay-500 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <a href='mailto:alishersayed100@gmail.com' className="!text-xs sm:text-base text-cyan-300 cursor-pointer font-medium hover:text-cyan-500 transition-all duration-300 transform hover:scale-105">
               <span className="text-xs">📧</span> alishersayed100@gmail.com
             </a>
@@ -73,26 +73,28 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={`relative w-[350px] h-[320px] perspective z-30 sm:z-10 order-first sm:order-last transition-all duration-1000 ease-out delay-100 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <div className={`relative w-full max-w-[300px] sm:max-w-[350px] h-[260px] sm:h-[320px] mx-auto perspective z-30 sm:z-10 order-first sm:order-last transition-all duration-1000 ease-out delay-100 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <div
             className={`absolute top-0 left-0 transition-all duration-500 ease-in-out transform ${frontImage === 'first' ? 'z-20 scale-105 rotate-0' : 'z-10 scale-95 -rotate-2'}`}
             onMouseEnter={() => setFrontImage('first')}
+            onClick={() => setFrontImage('first')}
           >
             <Image
               src={myimage}
               alt="image1"
-              className="rounded-3xl shadow-2xl cursor-pointer scale-80 md:scale-100 object-cover w-72 h-72 sm:w-80 sm:h-80 transition-transform duration-500"
+              className="rounded-3xl shadow-2xl cursor-pointer object-cover w-56 h-56 sm:w-80 sm:h-80 transition-transform duration-500"
             />
           </div>
 
           <div
-            className={`absolute top-5 left-20 transition-all duration-500 ease-in-out transform ${frontImage === 'second' ? 'z-20 scale-105 rotate-0' : 'z-10 scale-95 rotate-2'}`}
+            className={`absolute top-4 left-14 sm:top-5 sm:left-20 transition-all duration-500 ease-in-out transform ${frontImage === 'second' ? 'z-20 scale-105 rotate-0' : 'z-10 scale-95 rotate-2'}`}
             onMouseEnter={() => setFrontImage('second')}
+            onClick={() => setFrontImage('second')}
           >
             <Image
               src={myimage1}
               alt="image2"
-              className="rounded-3xl shadow-2xl cursor-pointer scale-80 md:scale-100 object-cover w-72 h-72 sm:w-80 sm:h-80 transition-transform duration-500"
+              className="rounded-3xl shadow-2xl cursor-pointer object-cover w-56 h-56 sm:w-80 sm:h-80 transition-transform duration-500"
             />
           </div>
         </div>

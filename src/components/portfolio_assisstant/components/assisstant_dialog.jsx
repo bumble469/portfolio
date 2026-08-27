@@ -23,34 +23,71 @@ const AssistantDialog = ({ open, onClose }) => {
 
   const [apiAwake, setApiAwake] = useState(false);
   const [wakingUp, setWakingUp] = useState(false);
+  const [queuedQuestion, setQueuedQuestion] = useState(null);
+  const pendingQuestionRef = useRef(null);
+  const pollTimeoutRef = useRef(null);
+  const cancelledRef = useRef(false);
 
   useEffect(() => {
     if (!open) return;
 
+    cancelledRef.current = false;
+    setApiAwake(false);
     setWakingUp(true);
 
-    qaApi
-      .get('/health', { timeout: 30000 })
-      .then((res) => {
-        if (res.status === 200) {
-          setApiAwake(true);
-        }
-      })
-      .catch(() => {
-        console.log("First wake failed, retrying...");
-        return qaApi.get('/health', { timeout: 20000 });
-      })
-      .then((res) => {
-        if (res?.status === 200) {
-          setApiAwake(true);
-        }
-      })
-      .catch((err) => {
-        console.log("API wake up logic failed", err);
-      })
-      .finally(() => {
+    const POLL_INTERVAL_MS = 4000;
+    const MAX_WAIT_MS = 120000; // give Render's free-tier cold start enough runway
+    const startedAt = Date.now();
+
+    const pingOnce = () =>
+      qaApi.get('/health', { timeout: 8000 }).then((res) => res.status === 200);
+
+    const poll = () => {
+      if (cancelledRef.current) return;
+
+      pingOnce()
+        .then((ok) => {
+          if (cancelledRef.current) return;
+
+          if (ok) {
+            setApiAwake(true);
+            setWakingUp(false);
+
+            if (pendingQuestionRef.current) {
+              const q = pendingQuestionRef.current;
+              pendingQuestionRef.current = null;
+              setQueuedQuestion(null);
+              askQuestion(q);
+            }
+            return;
+          }
+
+          scheduleNext();
+        })
+        .catch(() => {
+          if (cancelledRef.current) return;
+          scheduleNext();
+        });
+    };
+
+    const scheduleNext = () => {
+      if (cancelledRef.current) return;
+
+      if (Date.now() - startedAt >= MAX_WAIT_MS) {
         setWakingUp(false);
-      });
+        setError('The assistant is taking longer than usual to wake up. Please try again in a moment.');
+        return;
+      }
+
+      pollTimeoutRef.current = setTimeout(poll, POLL_INTERVAL_MS);
+    };
+
+    poll();
+
+    return () => {
+      cancelledRef.current = true;
+      if (pollTimeoutRef.current) clearTimeout(pollTimeoutRef.current);
+    };
   }, [open]);
 
   const askQuestion = async (autoQuest) => {
@@ -58,6 +95,15 @@ const AssistantDialog = ({ open, onClose }) => {
       typeof autoQuest === 'string' ? autoQuest : question;
 
     if (!finalQuestion.trim()) return;
+
+    // If the assistant is still waking up, queue the question and send it
+    // automatically the moment it's ready instead of silently dropping it.
+    if (wakingUp || !apiAwake) {
+      pendingQuestionRef.current = finalQuestion;
+      setQueuedQuestion(finalQuestion);
+      setQuestion(finalQuestion);
+      return;
+    }
 
     setQuestion(finalQuestion);
     setLoading(true);
@@ -75,6 +121,10 @@ const AssistantDialog = ({ open, onClose }) => {
   };
 
   const handleClose = () => {
+    cancelledRef.current = true;
+    if (pollTimeoutRef.current) clearTimeout(pollTimeoutRef.current);
+    pendingQuestionRef.current = null;
+    setQueuedQuestion(null);
     setQuestion('');
     setAnswer(null);
     setError(null);
@@ -146,10 +196,10 @@ const AssistantDialog = ({ open, onClose }) => {
             </div>
             <button
               onClick={askQuestion}
-              disabled={loading || !question.trim() || wakingUp}
+              disabled={loading || !question.trim()}
               className="mt-4 w-full py-2 rounded-md text-sm bg-cyan-500 hover:bg-cyan-600 disabled:opacity-50"
             >
-              {wakingUp ? 'Assistant is waking up...' : 'Ask'}
+              {wakingUp ? "Will send once ready…" : "Ask"}
             </button>
           </div>
 
@@ -171,10 +221,10 @@ const AssistantDialog = ({ open, onClose }) => {
               />
               <button
                 onClick={askQuestion}
-                disabled={loading || !question.trim() || wakingUp}
+                disabled={loading || !question.trim()}
                 className="mt-3 w-full py-2 rounded-md text-sm bg-cyan-500 hover:bg-cyan-600 disabled:opacity-50"
               >
-                {wakingUp ? 'Assistant is waking up...' : 'Ask'}
+                {wakingUp ? "Will send once ready…" : "Ask"}
               </button>
             </div>
 
@@ -228,6 +278,11 @@ const AssistantDialog = ({ open, onClose }) => {
                     <p className="text-sm text-gray-400">
                       Assistant is waking up…
                     </p>
+                    {queuedQuestion && (
+                      <p className="text-xs text-cyan-400 max-w-xs">
+                        I'll ask "{queuedQuestion}" as soon as it's ready.
+                      </p>
+                    )}
                   </div>
                 </div>
               )}

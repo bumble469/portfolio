@@ -64,8 +64,10 @@ const FloatingHeader = () => {
                       px-1 pb-1
                       font-medium
                       text-white
-                      transition duration-300
-                      hover:text-cyan-400 
+                      transition-all duration-300
+                      hover:text-cyan-400
+                      hover:scale-110
+                      inline-block
                       ${isActive ? '!text-cyan-400 md:border-b-2 border-cyan-400' : 'md:border-b-2 border-transparent'}
                     `}
                   >
@@ -94,7 +96,7 @@ const FloatingHeader = () => {
             href="https://github.com/bumble469/"
             target="_blank"
             rel="noopener noreferrer"
-            className={`bg-cyan-500 hover:bg-cyan-600 text-white px-3 sm:px-4 py-2 rounded-md font-semibold shadow transition duration-300 ease-in-out flex items-center space-x-2 text-sm transition-all duration-1000 ease-out delay-100 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+            className={`bg-cyan-500 hover:bg-cyan-600 hover:scale-105 text-white px-3 sm:px-4 py-2 rounded-md font-semibold shadow transition-all duration-300 ease-in-out flex items-center space-x-2 text-sm transition-all duration-1000 ease-out delay-100 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
             <FaGithub className="text-white" />
             <span>GitHub</span>
@@ -103,7 +105,7 @@ const FloatingHeader = () => {
             href="https://www.linkedin.com/in/alisher-sayed-07a54a237/"
             target="_blank"
             rel="noopener noreferrer"
-            className={`border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white px-3 sm:px-4 py-2 rounded-md font-semibold shadow transition duration-300 ease-in-out flex items-center space-x-2 text-sm transition-all duration-1000 ease-out delay-500 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+            className={`border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white hover:scale-105 px-3 sm:px-4 py-2 rounded-md font-semibold shadow transition-all duration-300 ease-in-out flex items-center space-x-2 text-sm transition-all duration-1000 ease-out delay-500 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
             <FaLinkedin className="text-cyan-400" />
             <span>LinkedIn</span>

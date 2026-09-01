@@ -92,13 +92,13 @@ export default function Home() {
               onClick={() => setIsResumeModalOpen(true)}
               className="btn-shine bg-gradient-to-r from-cyan-500 to-blue-500 hover:scale-[1.04] hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 px-5 py-2.5 rounded-md font-medium cursor-pointer text-white"
             >
-              View Resume
+              <span className="font-semibold">Resume</span>
             </a>
             <a
               href="mailto:alishersayed100@gmail.com"
               className="btn-shine border border-gray-500 hover:border-cyan-400 hover:scale-[1.04] hover:text-cyan-300 transition-all duration-300 px-5 py-2.5 rounded-md font-medium text-white"
             >
-              Contact Me
+              <span className="font-semibold">Contact Me</span>
             </a>
           </div>
 

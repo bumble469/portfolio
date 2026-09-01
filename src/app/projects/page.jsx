@@ -112,16 +112,16 @@ const FloatingProjects = () => {
   };
 
   useEffect(() => {
-      const observer = new IntersectionObserver(
-        ([entry]) => setFadeIn(entry.isIntersecting),
-        { threshold: 0.5 }
-      );
-  
-      if (projectsRef.current) observer.observe(projectsRef.current);
-      return () => {
-        if (projectsRef.current) observer.unobserve(projectsRef.current);
-      };
-    }, []);
+    const observer = new IntersectionObserver(
+      ([entry]) => setFadeIn(entry.isIntersecting),
+      { threshold: 0.5 }
+    );
+
+    if (projectsRef.current) observer.observe(projectsRef.current);
+    return () => {
+      if (projectsRef.current) observer.unobserve(projectsRef.current);
+    };
+  }, []);
 
   return (
     <>
@@ -139,14 +139,14 @@ const FloatingProjects = () => {
         ref={projectsRef}
         id="projects"
         className="w-full sm:mt-8 md:mt-12 max-w-7xl mx-auto px-4 sm:px-6 py-3 border-2 border-gray-800/50 bg-gray-900/40 backdrop-blur-md rounded-xl shadow-lg z-50 flex flex-col items-center justify-between"
-        >
+      >
         <h2 ref={projectsRef} className={`text-2xl sm:text-3xl mt-4 mb-6 text-center text-white font-bold tracking-tight flex items-center justify-center gap-2 ${fadeIn ? 'opacity-100 translate-x-0 duration-1000' : 'opacity-0 -translate-x-10 duration-1000'} transition-all duration-500`}>
           <FolderKanban className="text-cyan-400" size={24} />
           Projects
         </h2>
         <div className="flex flex-wrap gap-4">
           {/* Row 1 */}
-          <div className="flex project-scrolling overflow-x-auto space-x-4 mx-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900" style={{ maxWidth: "calc(100vw - 100px)" }}>            
+          <div className="flex project-scrolling overflow-x-auto space-x-4 mx-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900" style={{ maxWidth: "calc(100vw - 100px)" }}>
             {projects.slice(0, Math.ceil(projects.length / 2)).map((project, index) => (
               <div
                 key={index}
@@ -155,30 +155,35 @@ const FloatingProjects = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
               >
-                <div className="relative">
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60 pointer-events-none z-10" />
                   <Image
                     src={project.image}
                     alt={project.name}
                     width={400}
                     height={250}
-                    className="object-cover w-full h-48"
+                    className="object-cover w-full h-48 transition-transform duration-500 group-hover:scale-105"
                   />
-                  {!project.link == "" ? <Link href={project.link} target="_blank" rel="noopener noreferrer">
-                    <div className="absolute top-2 right-2 bg-blue-600 hover:bg-blue-700 p-1 rounded-lg">
-                      <FiExternalLink className="inline-block ml-1 text-sm" />
-                    </div>
-                  </Link>:""}
+                  {project.link !== "" && (
+                    <Link href={project.link} target="_blank" rel="noopener noreferrer" className="z-20 absolute top-3 right-3">
+                      <div className="bg-gray-900/60 backdrop-blur-md border border-gray-600/50 hover:bg-cyan-500/20 hover:border-cyan-400 text-gray-300 hover:text-cyan-300 p-2 rounded-full transition-all duration-300 shadow-lg group-hover:shadow-cyan-500/20">
+                        <FiExternalLink className="text-sm transition-transform duration-300 hover:scale-110" />
+                      </div>
+                    </Link>
+                  )}
                 </div>
                 <div className="text-white text-center text-sm font-semibold py-3">
                   {project.name}
                 </div>
-                <div className="absolute bottom-2 left-2 bg-gray-600 hover:bg-gray-700 p-1 rounded-full">
-                  <Eye
-                    className="h-4 w-4 text-white cursor-pointer"
+                <div className="absolute bottom-2 left-2 z-20">
+                  <button
                     onClick={() =>
                       openModal(project.name, project.image, project.features, project.techStack, project.goal, project.videoUrl)
                     }
-                  />
+                    className="bg-gray-900/60 backdrop-blur-md border border-gray-600/50 hover:bg-cyan-500/20 hover:border-cyan-400 text-gray-300 hover:text-cyan-300 p-2 rounded-full transition-all duration-300 shadow-lg hover:shadow-cyan-500/20"
+                  >
+                    <Eye className="h-5 w-5 cursor-pointer transition-transform duration-300 hover:scale-110" />
+                  </button>
                 </div>
               </div>
             ))}
@@ -194,30 +199,35 @@ const FloatingProjects = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
               >
-                <div className="relative">
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60 pointer-events-none z-10" />
                   <Image
                     src={project.image}
                     alt={project.name}
                     width={400}
                     height={250}
-                    className="object-cover w-full h-48"
+                    className="object-cover w-full h-48 transition-transform duration-500 group-hover:scale-105"
                   />
-                  {!project.link == "" ? <Link href={project.link} target="_blank" rel="noopener noreferrer">
-                    <div className="absolute top-2 right-2 bg-blue-600 hover:bg-blue-700 p-1 rounded-lg">
-                      <FiExternalLink className="inline-block ml-1 text-sm" />
-                    </div>
-                  </Link>:""}
+                  {project.link !== "" && (
+                    <Link href={project.link} target="_blank" rel="noopener noreferrer" className="z-20 absolute top-3 right-3">
+                      <div className="bg-gray-900/60 backdrop-blur-md border border-gray-600/50 hover:bg-cyan-500/20 hover:border-cyan-400 text-gray-300 hover:text-cyan-300 p-2 rounded-full transition-all duration-300 shadow-lg group-hover:shadow-cyan-500/20">
+                        <FiExternalLink className="text-sm transition-transform duration-300 hover:scale-110" />
+                      </div>
+                    </Link>
+                  )}
                 </div>
                 <div className="text-white text-center text-sm font-semibold py-3">
                   {project.name}
                 </div>
-                <div className="absolute bottom-2 left-2 bg-gray-600 hover:bg-gray-700 p-1 rounded-full">
-                  <Eye
-                    className="h-4 w-4 text-white cursor-pointer"
+                <div className="absolute bottom-2 left-2 z-20">
+                  <button
                     onClick={() =>
                       openModal(project.name, project.image, project.features, project.techStack, project.goal, project.videoUrl)
                     }
-                  />
+                    className="bg-gray-900/60 backdrop-blur-md border border-gray-600/50 hover:bg-cyan-500/20 hover:border-cyan-400 text-gray-300 hover:text-cyan-300 p-2 rounded-full transition-all duration-300 shadow-lg hover:shadow-cyan-500/20"
+                  >
+                    <Eye className="h-5 cursor-pointer w-5 transition-transform duration-300 hover:scale-110" />
+                  </button>
                 </div>
               </div>
             ))}

@@ -40,11 +40,34 @@ const FloatingHeader = () => {
     <div className="w-full px-3 sm:px-6 pt-4">
       <div
         ref={headerRef}
-        className="max-w-6xl mx-auto rounded-full border border-cyan-500/30 bg-gray-900/70 backdrop-blur-md shadow-lg shadow-cyan-500/5 px-6 sm:px-8 py-3 flex items-center justify-between"
+        className="max-w-6xl mx-auto rounded-3xl md:rounded-full border border-cyan-500/30 bg-gray-900/70 backdrop-blur-md shadow-lg shadow-cyan-500/5 px-4 sm:px-6 md:px-8 py-3 flex flex-col md:flex-row items-center gap-3 md:gap-0 md:justify-between"
       >
-        <div className={`text-white text-base sm:text-lg md:text-xl font-bold whitespace-nowrap flex items-center space-x-2 transition-all duration-1000 ease-out delay-200 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <FaLaptopCode className="text-cyan-400 text-xl sm:text-2xl" />
-          <span>&lt;Full-stack Developer/&gt;</span>
+        <div className="w-full flex items-center justify-between md:w-auto md:contents">
+          <div className={`text-white text-sm sm:text-lg md:text-xl font-bold whitespace-nowrap flex items-center gap-2 transition-all duration-1000 ease-out delay-200 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <FaLaptopCode className="text-cyan-400 text-lg sm:text-2xl" />
+            <span>&lt;Full-stack Developer/&gt;</span>
+          </div>
+
+          <div className="flex md:hidden items-center gap-2">
+            <a
+              href="https://www.linkedin.com/in/alisher-sayed-07a54a237/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="w-9 h-9 rounded-full border border-gray-600 flex items-center justify-center text-gray-300 hover:border-cyan-400 hover:text-cyan-400 transition-all duration-300"
+            >
+              <FaLinkedin size={17} />
+            </a>
+            <a
+              href="https://github.com/bumble469/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="w-9 h-9 rounded-full border border-gray-600 flex items-center justify-center text-gray-300 hover:border-cyan-400 hover:text-cyan-400 transition-all duration-300"
+            >
+              <FaGithub size={17} />
+            </a>
+          </div>
         </div>
 
         <nav className="hidden md:flex flex-1 justify-center">
@@ -69,22 +92,27 @@ const FloatingHeader = () => {
           </ul>
         </nav>
 
-        <nav className="flex md:hidden flex-1 justify-center">
-          <ul className="flex flex-wrap justify-evenly space-x-4 text-xs">
+        <nav className="flex md:hidden w-full border-t border-gray-700/60 pt-3">
+          <ul className="flex flex-row items-center justify-between w-full">
             {Object.entries(routes).map(([routeName, routePath]) => {
               const isActive = pathname === routePath;
+
               return (
-                <li key={routeName}>
+                <li key={routeName} className="flex-1 flex justify-center">
                   <Link
                     href={routePath}
-                    className={`inline-block transition-all duration-300 ${isActive ? 'text-cyan-400' : 'text-gray-300 hover:text-white'}`}
+                    aria-label={routeName}
+                    className={`flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 ${isActive
+                        ? 'text-cyan-400 bg-cyan-400/10'
+                        : 'text-gray-300 hover:text-white'
+                      }`}
                   >
                     {{
-                      home: <FaHome size={19} />,
-                      about: <FaUserAlt size={19} />,
-                      projects: <FaProjectDiagram size={19} />,
-                      experience: <FaBriefcase size={19} />,
-                      achievements: <FaTrophy size={19} />
+                      home: <FaHome size={18} />,
+                      about: <FaUserAlt size={18} />,
+                      projects: <FaProjectDiagram size={18} />,
+                      experience: <FaBriefcase size={18} />,
+                      achievements: <FaTrophy size={18} />,
                     }[routeName]}
                   </Link>
                 </li>
@@ -93,7 +121,7 @@ const FloatingHeader = () => {
           </ul>
         </nav>
 
-        <div className="flex flex-row items-center space-x-3 sm:space-x-4">
+        <div className="hidden md:flex flex-row items-center space-x-3 sm:space-x-4">
           <a
             href="https://www.linkedin.com/in/alisher-sayed-07a54a237/"
             target="_blank"

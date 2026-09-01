@@ -129,10 +129,34 @@ body {
   scrollbar-color: rgba(220, 220, 220, 0.8) transparent;
 }
 
+/* Shine sweep for CTA buttons */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
 
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-20deg);
+  animation: btn-shine-sweep 2s ease-in-out infinite;
+}
 
-
-
-
-
-
+@keyframes btn-shine-sweep {
+  0% {
+    left: -75%;
+  }
+  40%, 100% {
+    left: 130%;
+  }
+}

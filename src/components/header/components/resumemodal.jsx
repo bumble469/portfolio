@@ -1,7 +1,15 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X } from 'lucide-react';
 
 const ResumeModal = ({ onClose, isOpen }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -14,41 +22,52 @@ const ResumeModal = ({ onClose, isOpen }) => {
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
+  if (!mounted) return null;
 
-  return (
-    <motion.div
-      className="fixed inset-0 bg-opacity-50 backdrop-blur-xs flex justify-center items-center z-[100] pointer-events-none"
-      initial={{ opacity: 0, scale: 0.8 }}  // Start from scaled down and invisible
-      animate={{ opacity: 1, scale: 1 }}   // Fade in with scale to normal size
-      exit={{ opacity: 0, scale: 0.8 }}    // Fade out with scale down
-      transition={{ opacity: { duration: 0.4 }, scale: { duration: 0.4 } }}  // Slow motion effect
-    >
-      <div
-        className="bg-gray-900/90 p-6 rounded-xl w-11/12 md:w-2/3 max-w-4xl h-[90vh] pointer-events-auto"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="relative h-full">
-          {/* Close Button */}
-          <button
-            onClick={onClose}
-            className="absolute text-white right-2 top-0 text-3xl cursor-pointer z-10"
+  return createPortal(
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 16 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            className="relative my-auto w-full max-w-5xl h-[85dvh] max-h-[calc(100dvh-2rem)] overflow-hidden rounded-2xl border border-cyan-500/30 bg-gray-900/95 shadow-2xl shadow-cyan-500/10 flex flex-col"
+            onClick={(e) => e.stopPropagation()}
           >
-            &times;
-          </button>
+            <div className="flex items-center justify-between px-5 py-3 border-b border-gray-800 shrink-0">
+              <h3 className="text-white font-bold text-base sm:text-lg">Resume</h3>
+              <button
+                onClick={onClose}
+                aria-label="Close dialog"
+                className="w-8 h-8 rounded-full bg-gray-900/70 border border-gray-700/70 flex items-center justify-center text-gray-300 hover:text-white hover:border-cyan-400/60 transition-all duration-300"
+              >
+                <X size={16} />
+              </button>
+            </div>
 
-          {/* Resume Viewer */}
-          <div className="h-full pt-10 overflow-auto rounded-lg shadow-lg">
-            <iframe
-              src="/resume.pdf"
-              width="100%"
-              height="100%"
-              className="w-full h-full rounded-lg"
-            ></iframe>
-          </div>
-        </div>
-      </div>
-    </motion.div>
+            <div className="flex-1 min-h-0 overflow-auto project-scrolling">
+              <iframe
+                src="/resume.pdf"
+                width="100%"
+                height="100%"
+                className="w-full h-full"
+              ></iframe>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>,
+    document.body
   );
 };
 

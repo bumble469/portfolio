@@ -346,9 +346,9 @@ const EducationCard = ({ item }) => {
               )}
             </div>
             <h4 className="text-white font-semibold text-sm leading-snug">{item.title}</h4>
-            <div className="flex items-center gap-1 mt-0.5">
-              <MapPin size={10} className="text-gray-500 shrink-0" />
-              <p className="text-gray-400 text-xs truncate">{item.place}</p>
+            <div className="flex items-start gap-1 mt-0.5">
+              <MapPin size={10} className="text-gray-500 shrink-0 mt-0.5" />
+              <p className="text-gray-400 text-xs break-words">{item.place}</p>
             </div>
             <div className="flex items-center gap-1.5 mt-1">
               <CalendarDays size={10} className="text-gray-500 shrink-0" />

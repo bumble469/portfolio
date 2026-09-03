@@ -204,7 +204,7 @@ const AssistantDialog = ({ open, onClose }) => {
                 <HiSparkles className="text-cyan-400" size={28} />
                 <h2 className="text-xl font-semibold">Ask something</h2>
               </div>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-gray-400 text-justify">
                 I can help answer questions about Alisher’s education, experience, projects, and tech stack, or explain how I work.
               </p>
             </div>

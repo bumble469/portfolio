@@ -7,12 +7,12 @@ import ResumeModal from '../components/header/components/resumemodal.jsx';
 import qaApi from "@/lib/qaApi";
 import { HiOutlineMail, HiOutlinePhone } from 'react-icons/hi';
 import { FiChevronDown } from 'react-icons/fi';
+import { useRouter } from 'next/navigation';
 
 const photos = [myimage, myimage1];
 
-const skills = [
-  'React', 'Next.js', 'Node.js', 'Express', 'Flask',
-  'MongoDB', 'MySQL', 'PostgreSQL', 'Tailwind CSS', 'Git',
+const previewSkills = [
+  'React', 'Next.js', 'Node.js'
 ];
 
 export default function Home() {
@@ -21,6 +21,7 @@ export default function Home() {
   const [fadeIn, setFadeIn] = useState(false);
   const [showAllSkills, setShowAllSkills] = useState(false);
   const homeRef = useRef(null);
+  const router = useRouter();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -102,7 +103,7 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="bg-gray-800/70 rounded-lg px-5 py-3 max-w-xl mx-auto md:mx-0 flex items-start gap-4">
+          <div className="bg-gray-800/70 rounded-lg px-5 py-3 w-fit mx-auto md:mx-0 flex items-start gap-4">
             <div className="flex divide-x divide-gray-700 justify-center md:justify-start shrink-0">
               <div className="pr-6 text-center md:text-left">
                 <p className="text-cyan-400 text-lg font-bold">8+</p>
@@ -114,12 +115,9 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="border-l border-gray-700 pl-4 flex-1 min-w-0">
-              <div
-                className="flex flex-wrap content-start gap-1.5 overflow-hidden transition-all duration-500 ease-in-out"
-                style={{ maxHeight: showAllSkills ? '54px' : '24px' }}
-              >
-                {skills.map((skill) => (
+            <div className="border-l border-gray-700 pl-4 w-fit">
+              <div className="flex flex-wrap gap-1.5">
+                {previewSkills.map((skill) => (
                   <span
                     key={skill}
                     className="bg-gray-700/80 text-cyan-400 text-[11px] font-medium px-2 py-0.5 rounded-full shadow-sm whitespace-nowrap transition-transform duration-300 ease-in-out hover:scale-105"
@@ -130,14 +128,11 @@ export default function Home() {
               </div>
 
               <button
-                onClick={() => setShowAllSkills((prev) => !prev)}
-                className="mt-1 flex items-center gap-1 text-[11px] font-medium text-cyan-400 hover:text-cyan-300 transition-colors duration-300"
+                onClick={() => router.push('/about?tab=skills#about')}
+                className="mt-1 cursor-pointer flex items-center gap-1 text-[11px] font-medium text-cyan-400 hover:text-cyan-300 transition-colors duration-300"
               >
-                {showAllSkills ? 'Show less' : 'View all'}
-                <FiChevronDown
-                  size={12}
-                  className={`transition-transform duration-300 ${showAllSkills ? 'rotate-180' : ''}`}
-                />
+                View all skills
+                <FiChevronDown size={12} className="-rotate-90" />
               </button>
             </div>
           </div>
@@ -152,9 +147,8 @@ export default function Home() {
                 key={index}
                 src={photo}
                 alt="Alisher Sayed"
-                className={`absolute inset-0 z-10 w-full h-full object-contain object-bottom transition-opacity duration-700 ease-in-out ${
-                  index === activePhoto ? 'opacity-100' : 'opacity-0'
-                }`}
+                className={`absolute inset-0 z-10 w-full h-full object-contain object-bottom transition-opacity duration-700 ease-in-out ${index === activePhoto ? 'opacity-100' : 'opacity-0'
+                  }`}
               />
             ))}
           </div>
@@ -165,9 +159,8 @@ export default function Home() {
                 key={index}
                 onClick={() => setActivePhoto(index)}
                 aria-label={`Show photo ${index + 1}`}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === activePhoto ? 'bg-cyan-400 w-5' : 'bg-gray-500'
-                }`}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${index === activePhoto ? 'bg-cyan-400 w-5' : 'bg-gray-500'
+                  }`}
               />
             ))}
           </div>

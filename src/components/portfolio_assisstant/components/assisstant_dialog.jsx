@@ -15,6 +15,13 @@ const DEFAULT_PROMPTS = [
   "What experience does Alisher have?"
 ];
 
+const GEMINI_FAILURE_MESSAGES = [
+  "I'm having trouble generating a response right now. Please try again shortly.",
+  "I couldn't generate an answer right now.",
+];
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const AssistantDialog = ({ open, onClose }) => {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState(null);
@@ -27,6 +34,8 @@ const AssistantDialog = ({ open, onClose }) => {
   const pendingQuestionRef = useRef(null);
   const pollTimeoutRef = useRef(null);
   const cancelledRef = useRef(false);
+
+  const [loadingStage, setLoadingStage] = useState('thinking');
 
   useEffect(() => {
     if (!open) return;
@@ -96,8 +105,6 @@ const AssistantDialog = ({ open, onClose }) => {
 
     if (!finalQuestion.trim()) return;
 
-    // If the assistant is still waking up, queue the question and send it
-    // automatically the moment it's ready instead of silently dropping it.
     if (wakingUp || !apiAwake) {
       pendingQuestionRef.current = finalQuestion;
       setQueuedQuestion(finalQuestion);
@@ -107,16 +114,44 @@ const AssistantDialog = ({ open, onClose }) => {
 
     setQuestion(finalQuestion);
     setLoading(true);
+    setLoadingStage('thinking');
     setError(null);
     setAnswer(null);
 
+    const runFallback = async () => {
+      setLoadingStage('fallback');
+      await sleep(1500);
+      try {
+        const fallbackRes = await qaApi.post(
+          '/api/ask',
+          { question: finalQuestion },
+          { timeout: 20000 }
+        );
+        setAnswer(fallbackRes.data.answer);
+      } catch (fallbackErr) {
+        setError('Something went wrong. Please try again.');
+      }
+    };
+
     try {
-      const res = await qaApi.post('/api/ask', { question: finalQuestion }, { timeout: 20000 });
-      setAnswer(res.data.answer);
+      const res = await qaApi.post(
+        '/api/ask/rag',
+        { question: finalQuestion },
+        { timeout: 32000 }
+      );
+
+      const text = res.data.answer?.trim();
+
+      if (GEMINI_FAILURE_MESSAGES.includes(text)) {
+        await runFallback();
+      } else {
+        setAnswer(res.data.answer);
+      }
     } catch (err) {
-      setError('Something went wrong. Please try again.');
+      await runFallback();
     } finally {
       setLoading(false);
+      setLoadingStage('thinking');
     }
   };
 
@@ -247,7 +282,9 @@ const AssistantDialog = ({ open, onClose }) => {
                   )}
 
                   {loading && (
-                    <p className="text-sm text-cyan-400">Thinking…</p>
+                    <p className="text-sm text-cyan-400">
+                      {loadingStage === 'fallback' ? 'Accessing static trained model…' : 'Thinking…'}
+                    </p>
                   )}
 
                   {answer && (

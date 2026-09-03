@@ -18,8 +18,11 @@ import {
   SiGit, SiJsonwebtokens, SiSocketdotio, SiMysql,
   SiMongodb, SiPostgresql
 } from 'react-icons/si';
+import { useSearchParams } from 'next/navigation';
 
 /* ─────────────────────────── data ─────────────────────────── */
+
+const TABS = ['education', 'skills', 'interests']
 
 const educationTimeline = [
   {
@@ -396,6 +399,21 @@ const FloatingAbout = () => {
   const [fadeIn, setFadeIn] = useState(false);
   const [activeTab, setActiveTab] = useState('education');
   const aboutRef = useRef(null);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    if (tabParam && TABS.includes(tabParam)) {
+      setActiveTab(tabParam);
+      const el = document.getElementById('about');
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          window.scrollBy({ top: 80, behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

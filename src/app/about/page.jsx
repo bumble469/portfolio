@@ -19,6 +19,7 @@ import {
   SiMongodb, SiPostgresql
 } from 'react-icons/si';
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
 /* ─────────────────────────── data ─────────────────────────── */
 
@@ -626,4 +627,10 @@ const FloatingAbout = () => {
   );
 };
 
-export default FloatingAbout;
+export default function AboutPage() {
+  return (
+    <Suspense fallback={null}>
+      <FloatingAbout />
+    </Suspense>
+  );
+}

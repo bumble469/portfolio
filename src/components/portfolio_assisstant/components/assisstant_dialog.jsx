@@ -292,7 +292,7 @@ const AssistantDialog = ({ open, onClose }) => {
                       sequence={[answer]}
                       speed={90}
                       wrapper="p"
-                      className="text-sm text-gray-300 leading-relaxed text-justify animate-fadeIn"
+                      className="text-sm text-gray-300 leading-relaxed text-justify whitespace-pre-line animate-fadeIn"
                       cursor={false}
                     />
                   )}

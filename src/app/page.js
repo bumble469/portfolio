@@ -1,7 +1,6 @@
 'use client';
 import { useState, useRef, useEffect } from "react";
 import myimage from '../assets/images/myimage.png';
-import myimage1 from '../assets/images/myimage1.png';
 import Image from 'next/image';
 import ResumeModal from '../components/header/components/resumemodal.jsx';
 import qaApi from "@/lib/qaApi";
@@ -9,7 +8,7 @@ import { HiOutlineMail, HiOutlinePhone } from 'react-icons/hi';
 import { FiChevronDown } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
 
-const photos = [myimage, myimage1];
+const photos = [myimage];
 
 const previewSkills = [
   'React', 'Next.js', 'Node.js'

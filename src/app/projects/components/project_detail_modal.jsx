@@ -13,8 +13,11 @@ const ProjectModal = ({
   techstack,
   goals,
   link,
+  date,
+  milestone,
   isOpen,
   onClose,
+  startWithVideo = false,
 }) => {
   const [mounted, setMounted] = useState(false);
 
@@ -59,9 +62,10 @@ const ProjectModal = ({
 
             <div className="overflow-y-auto project-scrolling p-6 sm:p-8">
               <ProjectDetailContent
-                key={name}
-                project={{ name, image, videoUrl, features, techStack: techstack, goal: goals, link }}
+                key={`${name}-${startWithVideo}`}
+                project={{ name, image, videoUrl, features, techStack: techstack, goal: goals, link, date, milestone }}
                 variant="dialog"
+                startWithVideo={startWithVideo}
               />
             </div>
           </motion.div>
